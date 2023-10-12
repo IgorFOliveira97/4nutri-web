@@ -1,0 +1,34 @@
+@import '../../../styles/variables.css';
+
+header {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-primary--);
+}
+
+header>img {
+    height: 100%;
+    padding-left: 50px;
+}
+
+header>img {
+    height: 100%;
+}
+
+.user,
+.user img {
+    height: 100%;
+}
+
+.user {
+    text-align: center;
+    padding: 10px;
+}
+
+.user img {
+    padding-top: 4px;
+    height: 48px;
+}

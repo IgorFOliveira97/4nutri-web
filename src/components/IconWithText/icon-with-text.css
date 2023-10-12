@@ -1,0 +1,9 @@
+.icon-with-text {
+    display: flex;
+    padding: 10px;
+}
+
+.icon-with-text>.icon {
+    font-size: 30px;
+    padding-right: 10px;
+}

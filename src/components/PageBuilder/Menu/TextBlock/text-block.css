@@ -1,0 +1,12 @@
+@import '../../../../styles/variables.css';
+
+.text-block {
+    width: 100%;
+    height: 40px;
+    text-align: center;
+}
+
+.text-block:hover {
+    background-color: var(--color-action--);
+    cursor: pointer;
+}

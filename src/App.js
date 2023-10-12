@@ -1,5 +1,5 @@
 import PageBuilder from "./components/PageBuilder";
-import './global-styles.css';
+import './styles/global-styles.css';
 
 function App() {
   return (
