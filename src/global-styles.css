@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     list-style: none;
+    text-decoration: none !important;
 }
 
 body,
@@ -12,4 +13,17 @@ html {
 body {
     background-color: #DCDCDC;
     /* height: 100%; */
+}
+
+/* Removendo sublinhado e mudando a cor do link */
+.customLink {
+    text-decoration: none;
+    color: inherit;
+    /* ou defina qualquer outra cor que você preferir */
+}
+
+/* Adicionando hover effect */
+.customLink:hover {
+    color: grey;
+    /* ou outra cor de sua escolha */
 }

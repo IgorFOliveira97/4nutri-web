@@ -1,5 +1,3 @@
-export default function Icon({icon: IconComponent}) {
-  return (
-        <IconComponent />  
-    )
+export default function Icon({ icon: IconComponent }) {
+  return <IconComponent />;
 }

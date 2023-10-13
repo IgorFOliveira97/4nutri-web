@@ -15,5 +15,5 @@ export default function Menu() {
         </li>
       </ul>
     </div>
-  )
+  );
 }

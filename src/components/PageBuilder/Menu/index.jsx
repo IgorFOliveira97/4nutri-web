@@ -1,31 +1,76 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import TextBlock from './TextBlock';
 import './menu.css';
-import { MdOutlineHome, MdOutlineMenu, MdOutlineRestaurantMenu, MdPeopleOutline } from "react-icons/md";
+import {
+  MdOutlineHome,
+  MdOutlineMenu,
+  MdOutlineRestaurantMenu,
+  MdPeopleOutline,
+} from 'react-icons/md';
 
 export default function Menu() {
-const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+  const navigate = useNavigate();
 
-const handleMenu = () =>{
-    setShowMenu(showMenu  => !showMenu);
-}
+  const openMenu = () => {
+    setShowMenu((showMenu) => !showMenu);
+  };
+  const handleMouseOver = () => {
+    setShowMenu(true);
+  };
+  const handleMouseLeave = () => {
+    setShowMenu(false);
+  };
+
   return (
-    <div className={`menu ${showMenu ? 'active' : ''}`}>
-      <MdOutlineMenu className='menu-icon' onClick={handleMenu} />
+    <div
+      className={'menu'}
+      onClick={openMenu}
+      onMouseOver={handleMouseOver}
+      onMouseLeave={handleMouseLeave}
+    >
+      <MdOutlineMenu className="menu-icon" />
       <div className="menu-itens">
-          {showMenu ? 
+        {showMenu ? (
           <>
-              <TextBlock icon={MdOutlineHome} display='flex' onClick={handleMenu}>Início</TextBlock>
-              <TextBlock icon={MdOutlineRestaurantMenu} display='flex' onClick={handleMenu}>Alimentos</TextBlock>
-              <TextBlock icon={MdPeopleOutline} display='flex' onClick={handleMenu}>Pacientes</TextBlock>
-          </> : 
+            <TextBlock
+              icon={MdOutlineHome}
+              display="flex"
+              onClick={() => navigate('/')}
+            >
+              Início
+            </TextBlock>
+            <TextBlock
+              icon={MdOutlineRestaurantMenu}
+              display="flex"
+              onClick={() => navigate('/foods')}
+            >
+              Alimentos
+            </TextBlock>
+            <TextBlock
+              icon={MdPeopleOutline}
+              display="flex"
+              onClick={() => navigate('/patients')}
+            >
+              Pacientes
+            </TextBlock>
+          </>
+        ) : (
           <>
-              <TextBlock icon={MdOutlineHome} onClick={handleMenu}/>
-              <TextBlock icon={MdOutlineRestaurantMenu} onClick={handleMenu}/>
-              <TextBlock icon={MdPeopleOutline} onClick={handleMenu}/>
-          </>}
+            <TextBlock icon={MdOutlineHome} onClick={() => navigate('/')} />
+            <TextBlock
+              icon={MdOutlineRestaurantMenu}
+              onClick={() => navigate('/foods')}
+            />
+            <TextBlock
+              icon={MdPeopleOutline}
+              onClick={() => navigate('/patients')}
+            />
+          </>
+        )}
       </div>
     </div>
-)
-
+  );
 }

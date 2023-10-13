@@ -5,13 +5,11 @@ import './page-builder.css';
 
 export default function PageBuilder(props) {
   return (
-    <div className='page-builder'>
-      <Header pageName={props.pageName} userName={props.userName}/>
+    <div className="page-builder">
+      <Header pageName={props.pageName} userName={props.userName} />
       <div className="main-content">
-          <Menu />
-          <div className="page-content">
-            {props.children}
-          </div>
+        <Menu />
+        <div className="page-content">{props.children}</div>
       </div>
       <Footer />
     </div>
