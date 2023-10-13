@@ -3,3 +3,15 @@
     flex-direction: column;
     height: 100vh;
 }
+
+.main-content {
+    display: flex;
+    flex-grow: 1;
+}
+
+.page-content {
+    max-width: 100%;
+
+    flex-grow: 1;
+    padding: 6px 2%;
+}

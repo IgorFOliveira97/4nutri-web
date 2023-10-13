@@ -10,18 +10,22 @@ const handleMenu = () =>{
     setShowMenu(showMenu  => !showMenu);
 }
   return (
-    <div className="menu">
-      <MdOutlineMenu  className='menu-icon' onClick={handleMenu} />
-      {showMenu ? <div className={`menu-itens ${showMenu ? 'active' : ''}`}>
-          <TextBlock icon={MdOutlineHome} display='flex' onClick={handleMenu}>Início</TextBlock>
-          <TextBlock icon={MdOutlineRestaurantMenu} display='flex' onClick={handleMenu}>Alimentos</TextBlock>
-          <TextBlock icon={MdPeopleOutline} display='flex' onClick={handleMenu}>Pacientes</TextBlock>
-      </div> : 
+    <div className={`menu ${showMenu ? 'active' : ''}`}>
+      <MdOutlineMenu className='menu-icon' onClick={handleMenu} />
       <div className="menu-itens">
-          <TextBlock icon={MdOutlineHome} onClick={handleMenu}/>
-          <TextBlock icon={MdOutlineRestaurantMenu} onClick={handleMenu}/>
-          <TextBlock icon={MdPeopleOutline} onClick={handleMenu}/>
-      </div> }
+          {showMenu ? 
+          <>
+              <TextBlock icon={MdOutlineHome} display='flex' onClick={handleMenu}>Início</TextBlock>
+              <TextBlock icon={MdOutlineRestaurantMenu} display='flex' onClick={handleMenu}>Alimentos</TextBlock>
+              <TextBlock icon={MdPeopleOutline} display='flex' onClick={handleMenu}>Pacientes</TextBlock>
+          </> : 
+          <>
+              <TextBlock icon={MdOutlineHome} onClick={handleMenu}/>
+              <TextBlock icon={MdOutlineRestaurantMenu} onClick={handleMenu}/>
+              <TextBlock icon={MdPeopleOutline} onClick={handleMenu}/>
+          </>}
+      </div>
     </div>
-  )
+)
+
 }

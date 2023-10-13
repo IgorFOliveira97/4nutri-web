@@ -4,7 +4,9 @@ import './styles/global-styles.css';
 function App() {
   return (
     <div className="App">
-      <PageBuilder pageName="Home" userName="João Pablo" />
+      <PageBuilder pageName="Home" userName="João Pablo" >
+
+      </PageBuilder>
     </div>
   );
 }
