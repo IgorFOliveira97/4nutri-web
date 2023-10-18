@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import UserRegistration from './pages/UserRegistration';
 import ErrorPage from './pages/ErrorPage';
 import './styles/global-styles.css';
+import Home from './pages/Home';
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
           <Route
             index={true}
             path="/"
-            element={<></>}
+            element={<Home />}
             errorElement={<ErrorPage />}
           />
           <Route path="/user" element={<></>} />

@@ -1,0 +1,14 @@
+.subscribe-button {
+    margin-top: 20px; /* Alinha o botão na parte inferior do card */
+    width: 100%; /* Ocupa toda a largura do card */
+    background-color: #1c28d6; /* Cor de fundo do botão */
+    color: #fff; /* Cor do texto do botão */
+    padding: 10px;
+    border: none;
+    border-radius: 0 0 8px 8px; /* Bordas arredondadas na parte inferior */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .subscribe-button:hover {
+    background-color: #3564ff; /* Cor de fundo ao passar o mouse */
+  }

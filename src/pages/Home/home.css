@@ -1,0 +1,33 @@
+.teste {
+    font-family:sans-serif;
+    color: #296e2c;
+    font-size: 50px; 
+    font-weight: bold; 
+    text-align: center;
+    margin-top: 20px;
+  }
+.teste1,.teste2 {
+    color: rgb(75, 74, 74);
+    text-align: center;
+    font-size: 22px;
+    margin: 10px 30px;
+  }
+  a{
+   font-size: 20px;
+   padding-left: 96%;
+   margin: 10px;
+  }
+  .button1 {
+    background-color: #3ea13e; /* Cor roxa */
+    color: #fff; /* Cor do texto */
+    padding: 10px 20px; /* Espaçamento interno */
+    margin-left: 80%;
+    border: none;
+    border-radius: 5px; /* Bordas arredondadas */
+    cursor: pointer;
+    font-size: 16px; /* Tamanho da fonte */
+  }
+
+  .button1:hover {
+    background-color: #325335; /* Cor roxa um pouco mais escura ao passar o mouse */
+  }
