@@ -12,27 +12,30 @@ import {
 
 export default function Menu() {
   const [showMenu, setShowMenu] = useState(false);
+  const [keepMenuOpen, setKeepMenuOpen] = useState(false);
   const navigate = useNavigate();
 
-  const openMenu = () => {
+  const handleMenu = () => {
     setShowMenu((showMenu) => !showMenu);
+    setKeepMenuOpen((keepMenuOpen) => !keepMenuOpen);
   };
   const handleMouseOver = () => {
     setShowMenu(true);
   };
   const handleMouseLeave = () => {
-    setShowMenu(false);
+    if (!keepMenuOpen) {
+      setShowMenu(false);
+    }
   };
 
   return (
-    <div
-      className={'menu'}
-      onClick={openMenu}
-      onMouseOver={handleMouseOver}
-      onMouseLeave={handleMouseLeave}
-    >
+    <div className={'menu'} onClick={handleMenu}>
       <MdOutlineMenu className="menu-icon" />
-      <div className="menu-itens">
+      <div
+        className="menu-itens"
+        onMouseOver={handleMouseOver}
+        onMouseLeave={handleMouseLeave}
+      >
         {showMenu ? (
           <>
             <TextBlock
