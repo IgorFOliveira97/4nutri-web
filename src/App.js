@@ -12,11 +12,7 @@ function App() {
           <Route
             index={true}
             path="/"
-<<<<<<< HEAD
             element={<Home />}
-=======
-            element={<Home/>}
->>>>>>> f21d51990cbc7888a265e871c712abb301d179ba
             errorElement={<ErrorPage />}
           />
           <Route path="/user" element={<></>} />

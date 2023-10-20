@@ -1,0 +1,7 @@
+.decorative-text{
+    color: #7b4ad6; /* Cor azul escuro */
+    font-size: 40px; /* Tamanho maior da fonte */
+    font-weight: bold; /* Negrito */
+    margin-top: 5px; /* Adiciona espaço abaixo do parágrafo especial */
+    margin-left: 8px;
+}

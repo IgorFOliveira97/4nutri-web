@@ -1,33 +1,53 @@
 .teste {
-    font-family:sans-serif;
-    color: #296e2c;
-    font-size: 50px; 
-    font-weight: bold; 
-    text-align: center;
-    margin-top: 20px;
-  }
-.teste1,.teste2 {
-    color: rgb(75, 74, 74);
-    text-align: center;
-    font-size: 22px;
-    margin: 10px 30px;
-  }
-  a{
-   font-size: 20px;
-   padding-left: 96%;
-   margin: 10px;
-  }
-  .button1 {
-    background-color: #3ea13e; /* Cor roxa */
-    color: #fff; /* Cor do texto */
-    padding: 10px 20px; /* Espaçamento interno */
-    margin-left: 80%;
-    border: none;
-    border-radius: 5px; /* Bordas arredondadas */
-    cursor: pointer;
-    font-size: 16px; /* Tamanho da fonte */
-  }
+  font-family: sans-serif;
+  color: #296e2c;
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 50px;
+}
+.teste1,
+.teste2 {
+  color: rgb(75, 74, 74);
+  text-align: center;
+  font-size: 22px;
+  margin: 10px 30px;
+}
+a {
+  font-size: 20px;
+  padding-left: 96%;
+  margin: 10px;
+}
+.card button {
+  margin-top: 60px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.card title{
+  font-weight: bold;
+}
 
-  .button1:hover {
-    background-color: #325335; /* Cor roxa um pouco mais escura ao passar o mouse */
-  }
+.discount-paragraph {
+  color: #666; /* Cor cinza */
+  font-size: 20px; /* Tamanho menor da fonte */
+  margin-top: 20px; /* Adiciona espaço acima do parágrafo de desconto */
+  margin-left: 10px;
+  margin-bottom: 0;
+}
+.text {
+  color: #777; /* Cor cinza claro para o texto equivalente a */
+  font-size: 20px; /* Tamanho menor da fonte */
+  margin-bottom: 20px; /* Reduzi a margem inferior */
+  margin-top: 50px; /* Adiciona espaço acima do parágrafo especial */
+  margin-left: 8px;
+}
+.SimpleText{
+  margin-top: 100px; /* Adicionei margin-top para empurrar para baixo */
+  margin-left: 8px;
+}
+li{
+  list-style-type: disc;
+  line-height: 50px;
+  font-size: 25px;
+}
+

@@ -3,7 +3,7 @@
 .menu {
     height: 100%;
     background-color: var(--color-secondary--);
-    transition: width 20s;
+    transition: width 50s;
 }
 
 .menu .active {

@@ -1,0 +1,13 @@
+.button {
+    margin-top: 10px; /* Alinha o botão na parte inferior do card */
+    background-color: var(--color-primary--); /* Cor de fundo do botão */
+    color: #fff; /* Cor do texto do botão */
+    padding: 15px;
+    border: none;
+    border-radius: 0 0 8px 8px; /* Bordas arredondadas na parte inferior */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .button:hover {
+    background-color: var(--color-secondary--); /* Cor de fundo ao passar o mouse */
+  }

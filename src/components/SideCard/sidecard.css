@@ -1,0 +1,27 @@
+.side-card {
+  display: flex;
+}
+
+.side-card-header,
+.side-card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.side-card-header img {
+ align-items:center ;
+}
+.side-card-body {
+  color: rgb(10, 9, 9);
+  font-size: 1.2em;
+  line-height: 1.0;
+  margin-bottom: 10px; /* Adiciona um espaçamento inferior para separar do conteúdo */
+  margin-top: 20px;
+}
+
+.side-card-body > div {
+  color: black;
+  margin-left: 20px;
+  line-height: 1.5;
+}
