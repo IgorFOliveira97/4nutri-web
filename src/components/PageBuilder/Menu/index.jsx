@@ -7,6 +7,7 @@ import {
   MdOutlineHome,
   MdOutlineMenu,
   MdOutlineRestaurantMenu,
+  MdOutlineSettings,
   MdPeopleOutline,
 } from 'react-icons/md';
 
@@ -56,6 +57,13 @@ export default function Menu() {
             >
               Pacientes
             </TextBlock>
+            <TextBlock
+              icon={MdOutlineSettings}
+              display="flex"
+              onClick={() => navigate('/user')}
+            >
+              Meus dados
+            </TextBlock>
           </>
         ) : (
           <>
@@ -67,6 +75,10 @@ export default function Menu() {
             <TextBlock
               icon={MdPeopleOutline}
               onClick={() => navigate('/patients')}
+            />
+            <TextBlock
+              icon={MdOutlineSettings}
+              onClick={() => navigate('/user')}
             />
           </>
         )}

@@ -3,7 +3,7 @@ import Form from '../../components/Form';
 import Input from '../../components/Input';
 import InputRadio from '../../components/InputRadio';
 import Button from '../../components/Button';
-import SimpleText from '../../components/SimpleText';
+import Label from '../../components/Label';
 import SimpleTitle from '../../components/SimpleTitle';
 import './UserRegistration.css';
 
@@ -12,37 +12,41 @@ export default function UserRegistration() {
     <PageBuilder pageName="Cadastro de Usuário" userName="João Pablo">
       <Form>
         <SimpleTitle>Cadastre-se</SimpleTitle>
-        <br />
-        <SimpleText>Nome</SimpleText>
+
+        <Label>Nome</Label>
         <Input type="text" name="nome" id="nome"></Input>
 
-        <SimpleText>Email</SimpleText>
+        <Label>Email</Label>
         <Input type="email" name="email" id="email"></Input>
 
-        <SimpleText>CRN</SimpleText>
+        <Label>CRN</Label>
         <Input type="text" name="CRN" id="CRN"></Input>
 
-        <SimpleText>CPF</SimpleText>
+        <Label>CPF</Label>
         <Input type="text" name="CPF" id="CPF"></Input>
 
-        <SimpleText>Telefone</SimpleText>
+        <Label>Telefone</Label>
         <Input type="tel" name="Telefone" id="Telefone"></Input>
 
-        <SimpleText>Data de nascimento</SimpleText>
+        <Label>Data de nascimento</Label>
         <Input type="date" name="nascimento" id="nascimento"></Input>
 
-        <SimpleText>Gênero</SimpleText>
-        <fieldset className="fildsetStyle">
-          <InputRadio name="genero" id="genero" value="Masculino"></InputRadio>
-          <InputRadio name="genero" id="genero" value="Feminino"></InputRadio>
-          <InputRadio name="genero" id="genero" value="Outros"></InputRadio>
+        <Label>Gênero</Label>
+        <fieldset className="fildset">
+          <InputRadio
+            name="genero"
+            id="masculino"
+            value="Masculino"
+          ></InputRadio>
+          <InputRadio name="genero" id="feminino" value="Feminino"></InputRadio>
+          <InputRadio name="genero" id="outro" value="Outro"></InputRadio>
         </fieldset>
 
-        <SimpleText>Senha</SimpleText>
+        <Label>Senha</Label>
         <Input type="password" name="Senha" id="Senha"></Input>
 
-        <SimpleText>Confirme sua senha</SimpleText>
-        <Input type="password" name="Senha" id="Senha"></Input>
+        <Label>Confirme sua senha</Label>
+        <Input type="password" name="Senha" id="ConfirmarSenha"></Input>
 
         <Button width="300px">Cadastrar</Button>
       </Form>

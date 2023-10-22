@@ -13,7 +13,9 @@ export default function Card(props) {
         <SimpleText>{props.children}</SimpleText>
       </div>
       <div className="card-footer">
-        <Button width="100%">{props.button}</Button>
+        <Button radius="0 0 8px 8px" width="100%">
+          {props.button}
+        </Button>
       </div>
     </div>
   );

@@ -1,12 +1,14 @@
 import './input.css';
 
-export default function Input(props) {
+export default function Input({ type, name, id, placeholder, required }) {
   return (
     <input
       className="input"
-      type={props.type}
-      name={props.name}
-      id={props.id}
+      type={type}
+      name={name}
+      id={id}
+      placeholder={placeholder}
+      required={required}
     ></input>
   );
 }

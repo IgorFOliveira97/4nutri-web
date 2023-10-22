@@ -4,6 +4,7 @@ import UserLogin from './pages/UserLogin';
 import ErrorPage from './pages/ErrorPage';
 import './styles/global-styles.css';
 import Home from './pages/Home';
+import User from './pages/User';
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
             element={<Home />}
             errorElement={<ErrorPage />}
           />
-          <Route path="/user" element={<></>} />
+          <Route path="/user" element={<User />} />
           <Route path="/user/registration" element={<UserRegistration />} />
           <Route path="/login" element={<UserLogin />} />
           <Route path="/foods" element={<></>} />

@@ -1,4 +1,5 @@
 import './inputRadio.css';
+import Label from '../Label';
 
 export default function InputRadio(props) {
   return (
@@ -9,7 +10,7 @@ export default function InputRadio(props) {
         name={props.name}
         id={props.id}
       />
-      <label className="labelStyle">{props.value}</label>
+      <Label htmlFor={props.id}>{props.value}</Label>
     </div>
   );
 }
