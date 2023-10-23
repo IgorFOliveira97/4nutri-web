@@ -1,9 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import UserRegistration from './pages/UserRegistration';
+import PatientRegistration from './pages/PatientRegistration';
 import UserLogin from './pages/UserLogin';
 import ErrorPage from './pages/ErrorPage';
 import './styles/global-styles.css';
-import Home from './pages/Home';
+// import Home from './pages/Home';
 import User from './pages/User';
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
           <Route
             index={true}
             path="/"
-            element={<Home />}
+            element={<PatientRegistration />}
             errorElement={<ErrorPage />}
           />
           <Route path="/user" element={<User />} />

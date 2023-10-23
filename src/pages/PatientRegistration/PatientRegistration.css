@@ -1,0 +1,10 @@
+.fildset {
+    width: 150px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    border-color: var(--color-primary--);
+    padding: 2px;
+    align-items: center;
+    display: flex;
+  }
+  
