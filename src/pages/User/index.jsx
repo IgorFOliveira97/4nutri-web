@@ -9,6 +9,7 @@ import OutlineButton from '../../components/OutlineButton';
 import Input from '../../components/Input';
 import { useState } from 'react';
 import Label from '../../components/Label';
+import { toast } from 'react-toastify';
 export default function User() {
   const [editDataMode, setEditDataMode] = useState(false);
   const [editAddressMode, setEditAddressMode] = useState(false);
@@ -20,6 +21,12 @@ export default function User() {
   const alterEditAddressMode = (event) => {
     event.preventDefault();
     setEditAddressMode(!editAddressMode);
+  };
+
+  const saveEdit = (event) => {
+    console.log(event);
+    event.preventDefault();
+    toast.success('Dados editados com sucesso!');
   };
   return (
     <PageBuilder pageName="Meus Dados" userName="João Pablo">
@@ -71,7 +78,7 @@ export default function User() {
                 <OutlineButton onClick={alterEditDataMode}>
                   Voltar
                 </OutlineButton>
-                <Button onClick={alterEditDataMode}>Salvar</Button>
+                <Button onClick={saveEdit}>Salvar</Button>
               </Container>
             </>
           )}
@@ -132,7 +139,7 @@ export default function User() {
                 <OutlineButton onClick={alterEditAddressMode}>
                   Voltar
                 </OutlineButton>
-                <Button onClick={alterEditAddressMode}>Salvar</Button>
+                <Button onClick={saveEdit}>Salvar</Button>
               </Container>
             </>
           )}

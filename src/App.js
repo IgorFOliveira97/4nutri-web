@@ -1,14 +1,18 @@
+import './styles/global-styles.css';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import UserRegistration from './pages/UserRegistration';
 import UserLogin from './pages/UserLogin';
 import ErrorPage from './pages/ErrorPage';
-import './styles/global-styles.css';
 import Home from './pages/Home';
 import User from './pages/User';
+import { ToastContainer, toast } from 'react-toastify';
 
 function App() {
   return (
     <div className="App">
+      <ToastContainer position="top-right" />
       <BrowserRouter>
         <Routes>
           <Route
