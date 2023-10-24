@@ -1,10 +1,17 @@
-.fildset {
-    width: 150px;
-    margin-bottom: 20px;
-    border-radius: 15px;
-    border-color: var(--color-primary--);
-    padding: 2px;
-    align-items: center;
-    display: flex;
-  }
+/* Estilo para a lista de abas */
+.tabela {
+  list-style: none;
+  padding: 0;
+  margin: 5px;
+  display: flex;
+  background-color: #1bcf84; /* Cor de fundo da barra de abas */
+  border-bottom: 5px solid #0e0d0d; /* Borda na parte inferior da barra de abas */
+  width: 998px;
+  margin-left: 125px;
   
+}
+/* No arquivo PatientRegistration.css */
+
+
+
+/* Estilo para a área dos Tabs */

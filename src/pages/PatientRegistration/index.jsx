@@ -7,15 +7,20 @@ import Label from '../../components/Label';
 import Input from '../../components/Input';
 import InputRadio from '../../components/InputRadio';
 import TextArea from '../../components/TextArea';
+import Button from '../../components/Button';
+
+import './PatientRegistration.css';
 
 export default function PatientRegistration() {
   return (
     <PageBuilder pageName="Registre seu pacientee" userName="João Pablo">
       <Tabs>
-        <TabList>
+        <TabList className="tabela">
           <Tab>Dados Pessoais</Tab>
           <Tab>Medidas</Tab>
           <Tab>Recordatorio</Tab>
+          <Tab>Medicamentos</Tab>
+          <Tab>Intolerancia</Tab>
         </TabList>
         <TabPanel>
           <Form>
@@ -49,7 +54,7 @@ export default function PatientRegistration() {
         </TabPanel>
         <TabPanel>
           <Form>
-            <SimpleTitle>Dados de medidas</SimpleTitle>
+            <SimpleTitle>Medidas Antropometricas</SimpleTitle>
             <Label>Peso</Label>
             <Input type="text"></Input>
             <Label>Altura</Label>
@@ -77,6 +82,23 @@ export default function PatientRegistration() {
             <TextArea rows="5" cols="33"></TextArea>
             <Label>Ceia</Label>
             <TextArea rows="5" cols="33"></TextArea>
+          </Form>
+        </TabPanel>
+        <TabPanel>
+          <Form>
+            <SimpleTitle>Medicamentos</SimpleTitle>
+            <Label>Medicamentos que o paciente consome</Label>
+            <TextArea rows="5" cols="40"></TextArea>
+          </Form>
+        </TabPanel>
+        <TabPanel>
+          <Form>
+            <SimpleTitle>Intolerancia e alergias</SimpleTitle>
+            <Label>
+              Descreva tudo o que o paciente tiver de alergias e intolerancia
+            </Label>
+            <TextArea rows="7" cols="40"></TextArea>
+            <Button>Enviar</Button>
           </Form>
         </TabPanel>
       </Tabs>
