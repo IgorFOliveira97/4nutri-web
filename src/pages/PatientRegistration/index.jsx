@@ -26,7 +26,12 @@ export default function PatientRegistration() {
           <Form>
             <SimpleTitle>Dados Pessoais</SimpleTitle>
             <Label>Nome</Label>
-            <Input type="text" name="nome" id="nome"></Input>
+            <Input
+              type="text"
+              name="nome"
+              id="nome"
+              placeholder={'nome do Paciente'}
+            ></Input>
 
             <Label>Telefone</Label>
             <Input type="tel" name="Telefone" id="Telefone"></Input>
@@ -50,6 +55,9 @@ export default function PatientRegistration() {
             </fieldset>
             <Label>Email</Label>
             <Input type="email" name="email" id="email"></Input>
+
+            <Label>Foto</Label>
+            <Input type="file" name="imagem" accept="image/*"></Input>
           </Form>
         </TabPanel>
         <TabPanel>

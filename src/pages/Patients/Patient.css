@@ -1,0 +1,64 @@
+.characters-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; 
+    gap: 20px; 
+  }
+.character {
+  justify-content: center;
+  align-items: center;
+}
+.character {
+  width: 280px;
+  margin: 0 10px;
+}
+
+.character .header {
+  background-color: #034d28;
+  border-radius: 10px 10px 0px 0px;
+}
+.character img {
+  width: 100px;
+  border-radius: 50%;
+  position: relative;
+  bottom: -50px;
+  margin-left: 30%;
+}
+
+.character .footer {
+  background: #80c489;
+  box-shadow: 5px 5px 15px rgba(201, 21, 21, 0.08);
+  border-radius: 0px 0px 10px 10px;
+  padding-top: 90px;
+  padding-bottom: 40px;
+  display: block;
+}
+
+.character .footer h4 {
+  color: #000000;
+  font-size: 30px;
+  line-height: 50px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  margin-top: -20px;
+  margin-left: 37%;
+}
+
+.character .footer h5 {
+  font-size: 18px;
+  line-height: 22px;
+  color: #331e1e;
+  padding: 0 16px;
+  margin-left: 28%;
+}
+.character .footer p {
+  font-size: 18px;
+  line-height: 22px;
+  color: #331e1e;
+  padding: 0 16px;
+  margin-left: 30%;
+}
+.button-container {
+  display: flex;
+  gap: 10px; /* Adiciona espaçamento entre os botões */
+}
