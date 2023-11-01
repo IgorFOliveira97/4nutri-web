@@ -1,3 +1,4 @@
+import React from 'react';
 import './home.css';
 import PageBuilder from '../../components/PageBuilder';
 import Card from '../../components/Card';

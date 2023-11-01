@@ -4,10 +4,11 @@ export default function Input({
   type,
   name,
   id,
-  value,
-  onChange,
   placeholder,
   required,
+  value,
+  onChange,
+  disabled,
 }) {
   return (
     <input
@@ -19,6 +20,7 @@ export default function Input({
       onChange={onChange}
       placeholder={placeholder}
       required={required}
+      disabled={disabled}
     ></input>
   );
 }
