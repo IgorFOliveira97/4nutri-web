@@ -9,10 +9,12 @@ import './UserRegistration.css';
 import axios from 'axios';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
-const url = 'http://localhost:8080/4nutri-api/';
+const url = 'http://localhost/4nutri-api/';
 
 export default function UserRegistration() {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState({
     name: '',
     crn: '',
@@ -32,6 +34,7 @@ export default function UserRegistration() {
       console.log(response);
       if (response.data.status == 200) {
         toast.success('Usuário cadastrado com sucesso!');
+        navigate('/login');
       } else {
         toast.error('Ocorreu um erro ao cadastrar usuário');
       }

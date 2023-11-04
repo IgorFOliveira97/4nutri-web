@@ -18,7 +18,7 @@ export default function Card(props) {
         <Button
           radius="0 0 8px 8px"
           width="100%"
-          onClick={() => navigate('/PaymentPage')}
+          onClick={() => navigate('/user/Registration')}
         >
           {props.button}
         </Button>

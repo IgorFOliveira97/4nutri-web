@@ -9,7 +9,7 @@ import Home from './pages/Home';
 import User from './pages/User';
 import Schedule from './pages/Schedule';
 import { ToastContainer } from 'react-toastify';
-import PatientManagement from './pages/PatientManagement';
+
 import Patients from './pages/Patients';
 import PatientRegistration from './pages/PatientRegistration';
 import PatientDetails from './pages/PatientDetails';
@@ -35,7 +35,6 @@ function App() {
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/patients/details" element={<PatientDetails />} />
           <Route path="/PaymentPage" element={<PaymentPage />} />
-          <Route path="/patients/management" element={<PatientManagement />} />
           <Route
             path="/patients/registration"
             element={<PatientRegistration />}
