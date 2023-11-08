@@ -14,6 +14,8 @@ import Patients from './pages/Patients';
 import PatientRegistration from './pages/PatientRegistration';
 import PatientDetails from './pages/PatientDetails';
 import PaymentPage from './pages/PaymentPage';
+import FoodsRegistration from './pages/FoodsRegistration';
+import Foods from './pages/Foods';
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
           <Route path="/user/registration" element={<UserRegistration />} />
           <Route path="/login" element={<UserLogin />} />
           <Route path="/foods" element={<></>} />
+          <Route path="/foods/registration" element={<FoodsRegistration />} />
+          <Route path="/foods/" element={<Foods />} />
           <Route path="/patients" element={<Patients />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/patients/details" element={<PatientDetails />} />
