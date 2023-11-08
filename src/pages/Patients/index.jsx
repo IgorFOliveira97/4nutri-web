@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import imagem from '../../assets/images/igor.jpg';
 import Button from '../../components/ButtonPacient';
 import PageBuilder from '../../components/PageBuilder';
+import SearchBar from '../../components/SearchBar';
 import './Patient.css';
 
 export default function Patients() {
@@ -10,6 +11,13 @@ export default function Patients() {
 
   return (
     <PageBuilder pageName="Meus Pacientes" userName="João Pablo">
+      <SearchBar
+        button="Novo paciente"
+        navigate="/patients/registration"
+        color="#3CB371"
+      >
+        {' '}
+      </SearchBar>
       <div className="characters-container">
         <div className="character">
           <div className="header">

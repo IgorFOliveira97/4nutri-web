@@ -1,5 +1,3 @@
-//npm i --save @devexpress/dx-react-core @devexpress/dx-react-scheduler
-//npm i --save @devexpress/dx-react-scheduler-material-ui
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
 import { ViewState } from '@devexpress/dx-react-scheduler';
@@ -25,6 +23,7 @@ const Appointment = ({ style, ...restProps }) => (
       backgroundColor: '#4caf50',
       borderRadius: '8px',
       color: '#fff',
+      cursor: 'pointer',
     }}
   />
 );
@@ -37,10 +36,13 @@ export default class Demo extends React.PureComponent {
       data: [],
       currentDate: new Date(),
       isModalOpen: false,
+      isNewAppointmentModalOpen: false,
+      selectedAppointment: null,
       newAppointment: {
         startDate: '',
         endDate: '',
         title: '',
+        description: '',
       },
     };
   }
@@ -52,6 +54,7 @@ export default class Demo extends React.PureComponent {
         startDate: '2023-10-31T10:00',
         endDate: '2023-10-31T11:00',
         title: 'Compromisso Inicial',
+        description: 'Detalhes do compromisso inicial.',
       },
       {},
     ];
@@ -59,12 +62,27 @@ export default class Demo extends React.PureComponent {
     this.setState({ data: initialAppointments });
   }
 
-  openModal = () => {
-    this.setState({ isModalOpen: true });
+  handleAppointmentClick = (appointment) => {
+    this.setState({
+      isModalOpen: true,
+      selectedAppointment: appointment,
+    });
   };
 
-  closeModal = () => {
-    this.setState({ isModalOpen: false });
+  openNewAppointmentModal = () => {
+    this.setState({ isNewAppointmentModalOpen: true });
+  };
+
+  closeNewAppointmentModal = () => {
+    this.setState({
+      isNewAppointmentModalOpen: false,
+      newAppointment: {
+        startDate: '',
+        endDate: '',
+        title: '',
+        description: '',
+      },
+    });
   };
 
   handleInputChange = (e) => {
@@ -77,8 +95,7 @@ export default class Demo extends React.PureComponent {
     }));
   };
 
-  addAppointment = () => {
-    // Adicionar um novo compromisso
+  addNewAppointment = () => {
     const { newAppointment, data } = this.state;
     const updatedData = [
       ...data,
@@ -92,7 +109,7 @@ export default class Demo extends React.PureComponent {
 
     this.setState({
       data: updatedData,
-      isModalOpen: false,
+      isNewAppointmentModalOpen: false,
       newAppointment: {
         startDate: '',
         endDate: '',
@@ -103,7 +120,14 @@ export default class Demo extends React.PureComponent {
   };
 
   render() {
-    const { data, currentDate, isModalOpen, newAppointment } = this.state;
+    const {
+      data,
+      currentDate,
+      isModalOpen,
+      isNewAppointmentModalOpen,
+      selectedAppointment,
+      newAppointment,
+    } = this.state;
 
     return (
       <PageBuilder>
@@ -119,13 +143,55 @@ export default class Demo extends React.PureComponent {
             <Toolbar />
             <DateNavigator />
             <TodayButton />
-            <Appointments appointmentComponent={Appointment} />
+            <Appointments
+              appointmentComponent={(props) => (
+                <Appointment
+                  {...props}
+                  onClick={() => this.handleAppointmentClick(props.data)}
+                />
+              )}
+            />
           </Scheduler>
         </Paper>
-        <Button onClick={this.openModal}>Adicionar Compromisso</Button>
+
+        {/* Modal para exibir detalhes do compromisso */}
+        <Modal
+          open={isModalOpen}
+          onClose={() => this.setState({ isModalOpen: false })}
+        >
+          <Box
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: 400,
+              bgcolor: 'background.paper',
+              boxShadow: 24,
+              p: 4,
+            }}
+          >
+            <h3>Detalhes do Compromisso</h3>
+            <p>
+              <strong>Título:</strong> {selectedAppointment?.title}
+            </p>
+            <p>
+              <strong>Data de Início:</strong> {selectedAppointment?.startDate}
+            </p>
+            <p>
+              <strong>Data de Término:</strong> {selectedAppointment?.endDate}
+            </p>
+            <p>
+              <strong>Descrição:</strong> {selectedAppointment?.description}
+            </p>
+          </Box>
+        </Modal>
 
         {/* Modal para adicionar um novo compromisso */}
-        <Modal open={isModalOpen} onClose={this.closeModal}>
+        <Modal
+          open={isNewAppointmentModalOpen}
+          onClose={this.closeNewAppointmentModal}
+        >
           <Box
             sx={{
               position: 'absolute',
@@ -173,7 +239,7 @@ export default class Demo extends React.PureComponent {
               fullWidth
             />
             <Button
-              onClick={this.addAppointment}
+              onClick={this.addNewAppointment}
               variant="contained"
               color="primary"
             >
@@ -181,6 +247,11 @@ export default class Demo extends React.PureComponent {
             </Button>
           </Box>
         </Modal>
+
+        {/* Botão para abrir o modal de novo compromisso */}
+        <Button onClick={this.openNewAppointmentModal}>
+          Adicionar Compromisso
+        </Button>
       </PageBuilder>
     );
   }

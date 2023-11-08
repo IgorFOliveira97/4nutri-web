@@ -9,14 +9,14 @@ import './foods.css';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 
-export default function FoodsRegistration() {
+export default function FoodsEdit() {
   const navigate = useNavigate();
 
   return (
     <PageBuilder pageName="Cadastre um novo alimento" userName="João Pablo">
       <Container>
         <Form>
-          <SimpleTitle>Novo Alimento</SimpleTitle>
+          <SimpleTitle>Editar Alimento</SimpleTitle>
           <br />
           <p></p>
           <Label>Nome do alimento</Label>
@@ -41,8 +41,8 @@ export default function FoodsRegistration() {
           <Input type="number" placeholder="g"></Input>
           <Label>Fibra Alimentar</Label>
           <Input type="number" placeholder="g"></Input>
-          <Button>Cadastrar</Button>
-          <Button onClick={() => navigate('/foods')}>Voltar</Button>
+          <Button>Concluir</Button>
+          <Button onClick={() => navigate('/foods')}>Cancelar</Button>
         </Form>
       </Container>
     </PageBuilder>

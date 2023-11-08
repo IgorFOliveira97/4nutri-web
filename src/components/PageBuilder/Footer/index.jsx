@@ -11,7 +11,7 @@ export default function Footer() {
         <img src={Instagram} alt="Ícone do Instagram" />
         <img src={Whatsapp} alt="Ícone do Whatsapp" />
       </div>
-      <SimpleText>Powered by 6-Tech</SimpleText>
+      <SimpleText>Powered by 4-Tech</SimpleText>
     </footer>
   );
 }
