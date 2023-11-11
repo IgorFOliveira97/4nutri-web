@@ -1,5 +1,5 @@
-import PageBuilder from '../../components/PageBuilder';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import PageBuilder from '../../components/PageBuilder';
 import 'react-tabs/style/react-tabs.css';
 import Form from '../../components/Form';
 import SimpleTitle from '../../components/SimpleTitle';
@@ -10,10 +10,45 @@ import TextArea from '../../components/TextArea';
 import Button from '../../components/Button';
 
 import './PatientRegistration.css';
+import { useState } from 'react';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import handleInputChange from '../../handlers/input.handler';
 
 export default function PatientRegistration() {
+  const [patientData, setPatientData] = useState({
+    name: '',
+    phone: '',
+    mobile: '',
+    birth_date: '',
+    gender: '',
+    email: '',
+    photo: '',
+    weight: '',
+    height: '',
+    bmi: '',
+    skinfold_thickness: '',
+    growth_curve: '',
+    gestational_curve: '',
+  });
+  const savePatient = async () => {
+    await axios
+      .post('paciente', patientData)
+      .then((response) => {
+        if (response.status == 201) {
+          toast.success('Paciente cadastrado com sucesso!');
+        } else {
+          toast.error('Houve um erro no cadastro de pacientes!');
+          console.error(response);
+        }
+      })
+      .catch((error) => {
+        toast.error('Houve um erro no cadastro de pacientes!');
+        console.error(error);
+      });
+  };
   return (
-    <PageBuilder pageName="Registre seu pacientee" userName="João Pablo">
+    <PageBuilder pageName="Cadastre seu paciente" userName="João Pablo">
       <Tabs>
         <TabList className="tabela">
           <Tab>Dados Pessoais</Tab>
@@ -28,53 +63,116 @@ export default function PatientRegistration() {
             <Label>Nome</Label>
             <Input
               type="text"
-              name="nome"
+              name="name"
               id="nome"
-              placeholder={'nome do Paciente'}
+              placeholder="Nome do Paciente"
+              value={patientData.name}
+              onChange={(event) => handleInputChange(event, setPatientData)}
             ></Input>
 
             <Label>Telefone</Label>
-            <Input type="tel" name="Telefone" id="Telefone"></Input>
+            <Input
+              type="tel"
+              name="phone"
+              id="Telefone"
+              value={patientData.phone}
+              onChange={(event) => handleInputChange(event, setPatientData)}
+            ></Input>
 
             <Label>Data de nascimento</Label>
-            <Input type="date" name="nascimento" id="nascimento"></Input>
+            <Input
+              type="date"
+              name="birth_date"
+              id="nascimento"
+              value={patientData.birth_date}
+              onChange={(event) => handleInputChange(event, setPatientData)}
+            ></Input>
 
             <Label>Gênero</Label>
             <fieldset className="fildset">
               <InputRadio
-                name="genero"
+                name="gender"
                 id="masculino"
                 value="Masculino"
+                onChange={(event) => handleInputChange(event, setPatientData)}
               ></InputRadio>
               <InputRadio
-                name="genero"
+                name="gender"
                 id="feminino"
                 value="Feminino"
+                onChange={(event) => handleInputChange(event, setPatientData)}
               ></InputRadio>
-              <InputRadio name="genero" id="outro" value="Outro"></InputRadio>
+              <InputRadio
+                name="gender"
+                id="outro"
+                value="Outro"
+                onChange={(event) => handleInputChange(event, setPatientData)}
+              ></InputRadio>
             </fieldset>
             <Label>Email</Label>
-            <Input type="email" name="email" id="email"></Input>
+            <Input
+              type="email"
+              name="email"
+              id="email"
+              value={patientData.email}
+              onChange={(event) => handleInputChange(event, setPatientData)}
+            ></Input>
 
             <Label>Foto</Label>
-            <Input type="file" name="imagem" accept="image/*"></Input>
+            <Input
+              type="file"
+              name="photo"
+              accept="image/*"
+              value={patientData.photo}
+              onChange={(event) => handleInputChange(event, setPatientData)}
+            ></Input>
           </Form>
         </TabPanel>
         <TabPanel>
           <Form>
             <SimpleTitle>Medidas Antropometricas</SimpleTitle>
             <Label>Peso</Label>
-            <Input type="text"></Input>
+            <Input
+              type="text"
+              name="weigth"
+              value={patientData.weight}
+              onChange={(event) => handleInputChange(event, setPatientData)}
+            ></Input>
             <Label>Altura</Label>
-            <Input type="number"></Input>
+            <Input
+              type="number"
+              name="heigth"
+              value={patientData.heigth}
+              onChange={(event) => handleInputChange(event, setPatientData)}
+            ></Input>
             <Label>IMC</Label>
-            <Input type="number"></Input>
+            <Input
+              type="number"
+              name="bmi"
+              value={patientData.bmi}
+              onChange={(event) => handleInputChange(event, setPatientData)}
+            ></Input>
             <Label>Dobras Cutaneas</Label>
-            <Input type="number"></Input>
+            <Input
+              type="number"
+              name="skinfold_thickness"
+              value={patientData.skinfold_thickness}
+              onChange={(event) => handleInputChange(event, setPatientData)}
+            ></Input>
             <Label>Curva de Crescimento</Label>
-            <Input type="number"></Input>
+            <Input
+              type="number"
+              name="growth_curve"
+              value={patientData.growth_curve}
+              onChange={(event) => handleInputChange(event, setPatientData)}
+            ></Input>
             <Label>Curva Gestacional</Label>
-            <Input type="number"></Input>
+            <Input
+              type="number"
+              name="gestational_curve"
+              value={patientData.gestational_curve}
+              onChange={(event) => handleInputChange(event, setPatientData)}
+            ></Input>
           </Form>
         </TabPanel>
         <TabPanel>
@@ -106,7 +204,7 @@ export default function PatientRegistration() {
               Descreva tudo o que o paciente tiver de alergias e intolerancia
             </Label>
             <TextArea rows="7" cols="40"></TextArea>
-            <Button>Enviar</Button>
+            <Button onClick={savePatient}>Enviar</Button>
           </Form>
         </TabPanel>
       </Tabs>
