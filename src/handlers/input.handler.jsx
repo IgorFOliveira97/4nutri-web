@@ -1,6 +1,6 @@
-const handleInputChange = (event, functionName) => {
+const handleInputChange = (event, setFunction) => {
   const { name, value } = event.target;
-  functionName((prevState) => ({
+  setFunction((prevState) => ({
     ...prevState,
     [name]: value,
   }));

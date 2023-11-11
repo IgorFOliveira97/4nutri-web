@@ -9,6 +9,8 @@ export default function InputRadio(props) {
         type="radio"
         name={props.name}
         id={props.id}
+        value={props.value}
+        onChange={props.onChange}
       />
       <Label htmlFor={props.id}>{props.value}</Label>
     </div>

@@ -12,8 +12,6 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import handleInputChange from '../../handlers/input.handler';
 
-const url = 'http://localhost/4nutri-api/';
-
 export default function UserRegistration() {
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
@@ -26,28 +24,30 @@ export default function UserRegistration() {
     birth_date: '',
     gender: '',
     password: '',
-    confirm_password: '',
   });
 
-  const createUser = async () => {
-    try {
-      const response = await axios.post(url, userData);
-      console.log(response);
-      if (response.data.status == 200) {
-        toast.success('Usuário cadastrado com sucesso!');
-        navigate('/login');
-      } else {
+  const createNutritionist = async () => {
+    await axios
+      .post('nutricionista', userData)
+      .then((response) => {
+        if (response.status == 201) {
+          toast.success('Usuário cadastrado com sucesso!');
+          navigate('/login');
+        } else {
+          toast.error('Ocorreu um erro ao cadastrar usuário');
+          console.error(response);
+        }
+      })
+      .catch((error) => {
         toast.error('Ocorreu um erro ao cadastrar usuário');
-      }
-    } catch (error) {
-      toast.error('Ocorreu um erro ao cadastrar usuário');
-    }
+        console.error(error);
+      });
   };
 
   const saveUser = (event) => {
     event.preventDefault();
 
-    createUser();
+    createNutritionist();
   };
 
   return (
@@ -121,12 +121,32 @@ export default function UserRegistration() {
         <Label>Gênero</Label>
         <fieldset className="fildset">
           <InputRadio
-            name="genero"
+            name="gender"
             id="masculino"
             value="Masculino"
+            onChange={(event) => {
+              console.log(event.target.value);
+              handleInputChange(event, setUserData);
+            }}
           ></InputRadio>
-          <InputRadio name="genero" id="feminino" value="Feminino"></InputRadio>
-          <InputRadio name="genero" id="outro" value="Outro"></InputRadio>
+          <InputRadio
+            name="gender"
+            id="feminino"
+            value="Feminino"
+            onChange={(event) => {
+              console.log(event.target.value);
+              handleInputChange(event, setUserData);
+            }}
+          ></InputRadio>
+          <InputRadio
+            name="gender"
+            id="outro"
+            value="Outro"
+            onChange={(event) => {
+              console.log(event.target.value);
+              handleInputChange(event, setUserData);
+            }}
+          ></InputRadio>
         </fieldset>
 
         <Label>Senha</Label>
@@ -144,7 +164,7 @@ export default function UserRegistration() {
           name="confirm_password"
           id="confirm_password"
           value={userData.confirm_password}
-          onChange={(event) => handleInputChange(event, setUserData)}
+          // onChange={(event) => handleInputChange(event, setUserData)}
         ></Input>
 
         <Button width="300px" onClick={saveUser}>
