@@ -10,6 +10,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import handleInputChange from '../../handlers/input.handler';
 
 const url = 'http://localhost/4nutri-api/';
 
@@ -42,13 +43,7 @@ export default function UserRegistration() {
       toast.error('Ocorreu um erro ao cadastrar usuário');
     }
   };
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setUserData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+
   const saveUser = (event) => {
     event.preventDefault();
 
@@ -66,7 +61,7 @@ export default function UserRegistration() {
           name="name"
           id="name"
           value={userData.name}
-          onChange={handleInputChange}
+          onChange={(event) => handleInputChange(event, setUserData)}
         ></Input>
 
         <Label>Email</Label>
@@ -75,7 +70,7 @@ export default function UserRegistration() {
           name="email"
           id="email"
           value={userData.email}
-          onChange={handleInputChange}
+          onChange={(event) => handleInputChange(event, setUserData)}
         ></Input>
 
         <Label>CRN</Label>
@@ -84,7 +79,7 @@ export default function UserRegistration() {
           name="crn"
           id="crn"
           value={userData.crn}
-          onChange={handleInputChange}
+          onChange={(event) => handleInputChange(event, setUserData)}
         ></Input>
 
         <Label>CPF</Label>
@@ -93,7 +88,7 @@ export default function UserRegistration() {
           name="cpf"
           id="cpf"
           value={userData.cpf}
-          onChange={handleInputChange}
+          onChange={(event) => handleInputChange(event, setUserData)}
         ></Input>
 
         <Label>Telefone</Label>
@@ -102,7 +97,7 @@ export default function UserRegistration() {
           name="phone"
           id="phone"
           value={userData.phone}
-          onChange={handleInputChange}
+          onChange={(event) => handleInputChange(event, setUserData)}
         ></Input>
 
         <Label>Celular</Label>
@@ -111,7 +106,7 @@ export default function UserRegistration() {
           name="mobile"
           id="mobile"
           value={userData.mobile}
-          onChange={handleInputChange}
+          onChange={(event) => handleInputChange(event, setUserData)}
         ></Input>
 
         <Label>Data de nascimento</Label>
@@ -120,7 +115,7 @@ export default function UserRegistration() {
           name="birth_date"
           id="birth_date"
           value={userData.birth_date}
-          onChange={handleInputChange}
+          onChange={(event) => handleInputChange(event, setUserData)}
         ></Input>
 
         <Label>Gênero</Label>
@@ -140,7 +135,7 @@ export default function UserRegistration() {
           name="password"
           id="password"
           value={userData.password}
-          onChange={handleInputChange}
+          onChange={(event) => handleInputChange(event, setUserData)}
         ></Input>
 
         <Label>Confirme sua senha</Label>
@@ -149,7 +144,7 @@ export default function UserRegistration() {
           name="confirm_password"
           id="confirm_password"
           value={userData.confirm_password}
-          onChange={handleInputChange}
+          onChange={(event) => handleInputChange(event, setUserData)}
         ></Input>
 
         <Button width="300px" onClick={saveUser}>

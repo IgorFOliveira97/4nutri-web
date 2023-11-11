@@ -3,7 +3,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import UserRegistration from './pages/UserRegistration';
-import UserLogin from './pages/UserLogin';
+import Login from './pages/Login';
 import ErrorPage from './pages/ErrorPage';
 import Home from './pages/Home';
 import User from './pages/User';
@@ -17,8 +17,11 @@ import PaymentPage from './pages/PaymentPage';
 import FoodsRegistration from './pages/FoodsRegistration';
 import Foods from './pages/Foods';
 import FoodsEdit from './pages/FoodsEdit';
+import axios from 'axios';
 
 function App() {
+  axios.defaults.baseURL = 'http://localhost:3001/';
+
   return (
     <div className="App">
       <ToastContainer position="top-right" />
@@ -32,7 +35,7 @@ function App() {
           />
           <Route path="/user" element={<User />} />
           <Route path="/user/registration" element={<UserRegistration />} />
-          <Route path="/login" element={<UserLogin />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/foods" element={<></>} />
           <Route path="/foods/registration" element={<FoodsRegistration />} />
           <Route path="/foods/edit" element={<FoodsEdit />} />
