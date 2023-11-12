@@ -1,10 +1,10 @@
+import './user.css';
 import PageBuilder from '../../components/PageBuilder';
 import TextArea from '../../components/TextAreaWithLabel';
 import Form from '../../components/Form';
 import Container from '../../components/Container';
 import SimpleTitle from '../../components/SimpleTitle';
 import Button from '../../components/Button';
-import './user.css';
 import OutlineButton from '../../components/OutlineButton';
 import Input from '../../components/Input';
 import { useState } from 'react';
