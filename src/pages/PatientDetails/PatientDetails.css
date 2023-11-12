@@ -5,3 +5,17 @@
     float: left;
     margin-Right: 20px;
 }
+.button-cont{
+    display: flex;
+}
+.detalhes {
+    list-style: none;
+    padding: 0;
+    margin: 5px;
+    display: flex;
+    background-color: #1bcf84; /* Cor de fundo da barra de abas */
+    border-bottom: 5px solid #0e0d0d; /* Borda na parte inferior da barra de abas */
+    width: 800px;
+    margin-left: 250px;
+    
+  }
