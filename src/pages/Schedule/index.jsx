@@ -249,9 +249,9 @@ export default class Demo extends React.PureComponent {
         </Modal>
 
         {/* Botão para abrir o modal de novo compromisso */}
-        <Button onClick={this.openNewAppointmentModal}>
+        {/* <Button onClick={this.openNewAppointmentModal}>
           Adicionar Compromisso
-        </Button>
+        </Button> */}
       </PageBuilder>
     );
   }
