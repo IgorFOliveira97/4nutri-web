@@ -31,7 +31,9 @@ export default function PatientRegistration() {
     growth_curve: '',
     gestational_curve: '',
   });
-  const savePatient = async () => {
+
+  const savePatient = async (event) => {
+    event.preventDefault();
     await axios
       .post('paciente', patientData)
       .then((response) => {
@@ -47,6 +49,7 @@ export default function PatientRegistration() {
         console.error(error);
       });
   };
+
   return (
     <PageBuilder pageName="Cadastre seu paciente" userName="João Pablo">
       <Tabs>
@@ -76,6 +79,15 @@ export default function PatientRegistration() {
               name="phone"
               id="Telefone"
               value={patientData.phone}
+              onChange={(event) => handleInputChange(event, setPatientData)}
+            ></Input>
+
+            <Label>Celular</Label>
+            <Input
+              type="tel"
+              name="mobile"
+              id="mobile"
+              value={patientData.mobile}
               onChange={(event) => handleInputChange(event, setPatientData)}
             ></Input>
 
@@ -134,7 +146,7 @@ export default function PatientRegistration() {
             <Label>Peso</Label>
             <Input
               type="text"
-              name="weigth"
+              name="weight"
               value={patientData.weight}
               onChange={(event) => handleInputChange(event, setPatientData)}
             ></Input>
