@@ -153,8 +153,8 @@ export default function PatientRegistration() {
             <Label>Altura</Label>
             <Input
               type="number"
-              name="heigth"
-              value={patientData.heigth}
+              name="height"
+              value={patientData.height}
               onChange={(event) => handleInputChange(event, setPatientData)}
             ></Input>
             <Label>IMC</Label>

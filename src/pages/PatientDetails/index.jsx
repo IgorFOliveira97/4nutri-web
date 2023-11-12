@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import PageBuilder from '../../components/PageBuilder';
 import AppointmentModal from '../../components/AppointmentModal';
@@ -9,10 +9,14 @@ import Input from '../../components/Input';
 import Label from '../../components/Label';
 import InputRadio from '../../components/InputRadio';
 import Button from '../../components/Button';
-import Imagem from '../../assets/images/igor.jpg';
+import Imagem from '../../assets/images/avatar-padrao.png';
 import './PatientDetails.css';
+import axios from 'axios';
+import { useParams } from 'react-router';
+import handleInputChange from '../../handlers/input.handler';
 
 export default function PatientDetails() {
+  const params = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleScheduleAppointment = (appointmentData) => {
     // Adicione a lógica para lidar com o agendamento aqui
@@ -21,20 +25,8 @@ export default function PatientDetails() {
   };
 
   const [isEditing, setIsEditing] = useState(false);
-  const [editedValues, setEditedValues] = useState({
-    nome: 'Igor Oliveira',
-    telefone: '987870169',
-    nascimento: '07/03/1997',
-    genero: 'Masculino',
-    email: 'igor.io756@gmail.com',
-  });
 
-  const handleInputChange = (field, value, type) => {
-    setEditedValues((prevValues) => ({
-      ...prevValues,
-      [field]: value,
-    }));
-  };
+  const [patient, setPatient] = useState();
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -45,6 +37,14 @@ export default function PatientDetails() {
     setIsEditing(false);
     // toast.success('Dados editados com Sucesso');
   };
+
+  useEffect(() => {
+    axios.get(`paciente/${params.id}`).then((response) => {
+      console.log(response.data);
+      setPatient(response.data);
+    });
+  }, []);
+
   return (
     <div>
       <PageBuilder>
@@ -54,99 +54,113 @@ export default function PatientDetails() {
             <Tab>Consultas</Tab>
           </TabList>
           <TabPanel>
-            <Form>
-              <img src={Imagem} alt="" />
-              <SimpleTitle>
-                {isEditing ? 'Editar informações' : 'Detalhes do Paciente'}
-              </SimpleTitle>
-              <Label>Nome</Label>
-              <Input
-                type="text"
-                name="nome"
-                id="nome"
-                value={editedValues.nome}
-                onChange={(e) => handleInputChange('nome', e.target.value)}
-                disabled={!isEditing}
-              />
-              <Label>Telefone</Label>
-              <Input
-                type="tel"
-                name="Telefone"
-                id="Telefone"
-                value={editedValues.telefone}
-                onChange={(e) => handleInputChange('telefone', e.target.value)}
-                disabled={!isEditing}
-              />
-              <Label>Data de nascimento</Label>
-              <Input
-                type="date"
-                name="nascimento"
-                id="nascimento"
-                value={editedValues.nascimento}
-                onChange={(e) =>
-                  handleInputChange('nascimento', e.target.value)
-                }
-                disabled={!isEditing}
-              />
-              <Label>Gênero</Label>
-              <fieldset className="fildset">
-                <InputRadio
-                  name="genero"
-                  id="masculino"
-                  value="Masculino"
-                  checked={editedValues.genero === 'Masculino'}
-                  onChange={(e) => handleInputChange('genero', e.target.value)}
-                  disabled={!isEditing}
-                />
-                <InputRadio
-                  name="genero"
-                  id="feminino"
-                  value="Feminino"
-                  checked={editedValues.genero === 'Feminino'}
-                  onChange={() => handleInputChange('genero', 'Feminino')}
-                  disabled={!isEditing}
-                />
-                <InputRadio
-                  name="genero"
-                  id="outro"
-                  value="Outro"
-                  checked={editedValues.genero === 'Outro'}
-                  onChange={() => handleInputChange('genero', 'Outro')}
-                  disabled={!isEditing}
-                />
-              </fieldset>
-              <Label>Email</Label>
-              <Input
-                type="email"
-                name="email"
-                id="email"
-                value={editedValues.email}
-                onChange={(e) => handleInputChange('email', e.target.value)}
-                disabled={!isEditing}
-              ></Input>
-              <SimpleTitle>Medidas Antropometricas</SimpleTitle>
-              <Label>Peso</Label>
-              <Input
-                type="text"
-                value={editedValues.peso}
-                onChange={(e) => handleInputChange('peso', e.target.value)}
-                disabled={!isEditing}
-              />
-              <Label>Altura</Label>
-              <Input type="number"></Input>
-              <Label>IMC</Label>
-              <Input type="number"></Input>
-
-              {/* Adicione outros campos de input conforme necessário, 
-          usando a mesma lógica */}
-            </Form>
-            <div className="button-cont">
-              {isEditing && <Button onClick={handleSaveClick}>Salvar</Button>}
-              {!isEditing && <Button onClick={handleEditClick}>Editar</Button>}
-              <Button onClick={() => setIsModalOpen(true)}>
-                Nova consulta
-              </Button>
-            </div>
+            {patient && (
+              <>
+                <Form>
+                  <img src={patient.photo || Imagem} alt="" />
+                  <SimpleTitle>
+                    {isEditing ? 'Editar informações' : 'Detalhes do Paciente'}
+                  </SimpleTitle>
+                  <Label>Nome</Label>
+                  <Input
+                    type="text"
+                    name="nome"
+                    id="nome"
+                    value={patient.name}
+                    onChange={(event) => handleInputChange(event, setPatient)}
+                    disabled={!isEditing}
+                  />
+                  <Label>Telefone</Label>
+                  <Input
+                    type="tel"
+                    name="Telefone"
+                    id="Telefone"
+                    value={patient.phone}
+                    onChange={(event) => handleInputChange(event, setPatient)}
+                    disabled={!isEditing}
+                  />
+                  <Label>Data de nascimento</Label>
+                  <Input
+                    type="date"
+                    name="nascimento"
+                    id="nascimento"
+                    value={patient.birth_date}
+                    onChange={(event) => handleInputChange(event, setPatient)}
+                    disabled={!isEditing}
+                  />
+                  <Label>Gênero</Label>
+                  <fieldset className="fildset">
+                    <InputRadio
+                      name="gender"
+                      id="masculino"
+                      value="Masculino"
+                      checked={patient.gender === 'Masculino'}
+                      onChange={(event) => handleInputChange(event, setPatient)}
+                      disabled={!isEditing}
+                    />
+                    <InputRadio
+                      name="gender"
+                      id="feminino"
+                      value="Feminino"
+                      checked={patient.gender === 'Feminino'}
+                      onChange={(event) => handleInputChange(event, setPatient)}
+                      disabled={!isEditing}
+                    />
+                    <InputRadio
+                      name="gender"
+                      id="outro"
+                      value="Outro"
+                      checked={patient.gender === 'Outro'}
+                      onChange={(event) => handleInputChange(event, setPatient)}
+                      disabled={!isEditing}
+                    />
+                  </fieldset>
+                  <Label>Email</Label>
+                  <Input
+                    type="email"
+                    name="email"
+                    id="email"
+                    value={patient.email}
+                    onChange={(event) => handleInputChange(event, setPatient)}
+                    disabled={!isEditing}
+                  ></Input>
+                  <SimpleTitle>Medidas Antropometricas</SimpleTitle>
+                  <Label>Peso</Label>
+                  <Input
+                    type="text"
+                    name="weigth"
+                    value={patient.weight}
+                    onChange={(event) => handleInputChange(event, setPatient)}
+                    disabled={!isEditing}
+                  />
+                  <Label>Altura</Label>
+                  <Input
+                    type="number"
+                    name="heigth"
+                    value={patient.height}
+                    onChange={(event) => handleInputChange(event, setPatient)}
+                  ></Input>
+                  <Label>IMC</Label>
+                  <Input
+                    type="number"
+                    name="bmi"
+                    value={patient.bmi}
+                    onChange={(event) => handleInputChange(event, setPatient)}
+                  ></Input>
+                </Form>
+                <div className="button-cont">
+                  {isEditing && (
+                    <Button onClick={handleSaveClick}>Salvar</Button>
+                  )}
+                  {!isEditing && (
+                    <Button onClick={handleEditClick}>Editar</Button>
+                  )}
+                  <Button onClick={() => setIsModalOpen(true)}>
+                    Nova consulta
+                  </Button>
+                </div>
+              </>
+            )}
           </TabPanel>
           <TabPanel>
             <table>
