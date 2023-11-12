@@ -1,11 +1,15 @@
 import PageBuilder from '../../components/PageBuilder';
 import SearchBar from '../../components/SearchBar';
 import SimpleTitle from '../../components/SimpleTitle';
+import banana from '../../assets/images/banana.jpg';
+import hamburguer from '../../assets/images/hamburguer.jpg';
 import './foods.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import Button from '../../components/Button';
+import OutButton from '../../components/OutlineButton';
+import Container from '../../components/Container';
 
 Modal.setAppElement('#root');
 
@@ -38,7 +42,7 @@ export default function Foods() {
           overlayClassName="modal-overlay"
           className="modal-content"
         >
-          <SimpleTitle>Alimento selecionado</SimpleTitle>
+          <SimpleTitle>Informação Nutricional</SimpleTitle>
           <br />
           <SimpleTitle>Banana</SimpleTitle>
           <br />
@@ -87,21 +91,56 @@ export default function Foods() {
             </tbody>
           </table>
           <Button onClick={() => navigate('/foods/edit')}>Editar</Button>
-          <Button onClick={closeModal}>Fechar</Button>
+          <div className="button-div">
+            <OutButton onClick={closeModal}>Fechar</OutButton>
+          </div>
         </Modal>
         <SimpleTitle>Alimentos cadastrados</SimpleTitle>
         <br />
-        <ol>
-          <li className="liFoods" onClick={openModal}>
-            Banana
-          </li>
-          <li className="liFoods" onClick={openModal}>
-            Salada
-          </li>
-          <li className="liFoods">Hamburguer</li>
-          <li className="liFoods">Queijo</li>
-          <li className="liFoods">Barra de cereal</li>
-        </ol>
+        <div className="food-container">
+          <div className="food">
+            <div className="header">
+              <img src={banana} alt=""></img>
+            </div>
+            <div className="footer">
+              <h4>Banana</h4>
+              <h5>Proteina: 20g</h5>
+              <h5>Carboidrato: 20g</h5>
+              <h5>Gordura: 20g</h5>
+              <div className="button-container">
+                <Button onClick={openModal}>Ver Alimento</Button>
+              </div>
+            </div>
+          </div>
+          <div className="food">
+            <div className="header">
+              <img src={hamburguer} alt=""></img>
+            </div>
+            <div className="footer">
+              <h4>Hamburguer</h4>
+              <h5>Proteina: 20g</h5>
+              <h5>Carboidrato: 20g</h5>
+              <h5>Gordura: 20g</h5>
+              <div className="button-container">
+                <Button onClick={openModal}>Ver Alimento</Button>
+              </div>
+            </div>
+          </div>
+          <div className="food">
+            <div className="header">
+              <img src={hamburguer} alt=""></img>
+            </div>
+            <div className="footer">
+              <h4>Hamburguer</h4>
+              <h5>Proteina: 20g</h5>
+              <h5>Carboidrato: 20g</h5>
+              <h5>Gordura: 20g</h5>
+              <div className="button-container">
+                <Button onClick={openModal}>Ver Alimento</Button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </PageBuilder>
   );
