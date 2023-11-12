@@ -28,25 +28,26 @@ export default function UserRegistration() {
 
   const createNutritionist = async () => {
     await axios
-      .post('nutricionista', userData)
+      .post('nutritionist', userData)
       .then((response) => {
         if (response.status == 201) {
-          toast.success('Usuário cadastrado com sucesso!');
+          toast.success('Cadastro realizado com sucesso!');
+          setTimeout(5001);
+          setUserData('');
           navigate('/login');
         } else {
-          toast.error('Ocorreu um erro ao cadastrar usuário');
+          toast.error('Ocorreu um erro no cadastro!');
           console.error(response);
         }
       })
       .catch((error) => {
-        toast.error('Ocorreu um erro ao cadastrar usuário');
+        toast.error('Ocorreu um erro no cadastro!');
         console.error(error);
       });
   };
 
   const saveUser = (event) => {
     event.preventDefault();
-
     createNutritionist();
   };
 

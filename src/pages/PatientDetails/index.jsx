@@ -39,7 +39,7 @@ export default function PatientDetails() {
   };
 
   useEffect(() => {
-    axios.get(`paciente/${params.id}`).then((response) => {
+    axios.get(`patient/${params.id}`).then((response) => {
       console.log(response.data);
       setPatient(response.data);
     });

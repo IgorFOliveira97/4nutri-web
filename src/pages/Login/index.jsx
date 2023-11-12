@@ -12,7 +12,7 @@ import { toast } from 'react-toastify';
 export default function Login() {
   const [userData, setUserData] = useState({
     email: '',
-    senha: '',
+    password: '',
   });
 
   const sendLoginData = async (event) => {
@@ -48,8 +48,8 @@ export default function Login() {
         <SimpleText>Senha</SimpleText>
         <Input
           type="password"
-          name="senha"
-          value={userData.senha}
+          name="password"
+          value={userData.password}
           onChange={(event) => handleInputChange(event, setUserData)}
         ></Input>
 

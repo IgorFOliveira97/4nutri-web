@@ -35,7 +35,7 @@ export default function PatientRegistration() {
   const savePatient = async (event) => {
     event.preventDefault();
     await axios
-      .post('paciente', patientData)
+      .post('patient', patientData)
       .then((response) => {
         if (response.status == 201) {
           toast.success('Paciente cadastrado com sucesso!');
