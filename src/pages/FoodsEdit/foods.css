@@ -11,3 +11,12 @@ Textarea {
 Input {
   margin-bottom: 15px;
 }
+
+.food img {
+  border-radius: 10px 10px 0px 0px;
+  height: 200px;
+  width: 280px;
+  position: relative;
+  bottom: 0px;
+  margin-left: 0px;
+}
