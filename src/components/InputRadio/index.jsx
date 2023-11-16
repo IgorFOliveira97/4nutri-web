@@ -11,6 +11,8 @@ export default function InputRadio(props) {
         id={props.id}
         value={props.value}
         onChange={props.onChange}
+        disabled={props.disabled}
+        checked={props.checked}
       />
       <Label htmlFor={props.id}>{props.value}</Label>
     </div>

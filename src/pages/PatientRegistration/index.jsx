@@ -35,7 +35,7 @@ export default function PatientRegistration() {
   const savePatient = async (event) => {
     event.preventDefault();
     await axios
-      .post('paciente', patientData)
+      .post('patient', patientData)
       .then((response) => {
         if (response.status == 201) {
           toast.success('Paciente cadastrado com sucesso!');
@@ -153,8 +153,8 @@ export default function PatientRegistration() {
             <Label>Altura</Label>
             <Input
               type="number"
-              name="heigth"
-              value={patientData.heigth}
+              name="height"
+              value={patientData.height}
               onChange={(event) => handleInputChange(event, setPatientData)}
             ></Input>
             <Label>IMC</Label>

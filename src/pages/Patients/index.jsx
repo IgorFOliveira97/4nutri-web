@@ -12,7 +12,7 @@ export default function Patients() {
   const [patients, setPatients] = useState();
 
   useEffect(() => {
-    axios.get('paciente').then((response) => {
+    axios.get('patient').then((response) => {
       setPatients(response.data);
     });
   }, []);
