@@ -7,12 +7,62 @@ import SimpleTitle from '../../components/SimpleTitle';
 import Button from '../../components/Button';
 import OutlineButton from '../../components/OutlineButton';
 import Input from '../../components/Input';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Label from '../../components/Label';
 import { toast } from 'react-toastify';
+import handleInputChange from '../../handlers/input.handler';
+import InputRadio from '../../components/InputRadio';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 export default function User() {
+  const params = useParams();
   const [editDataMode, setEditDataMode] = useState(false);
   const [editAddressMode, setEditAddressMode] = useState(false);
+  const [user, setUser] = useState();
+
+  const [editUserRequest, setEditUserRequest] = useState({
+    name: '',
+    crn: '',
+    cpf: '',
+    email: '',
+    phone: '',
+    mobile: '',
+    birth_date: '',
+    gender: '',
+    password: '',
+  });
+
+  useEffect(() => {
+    axios.get(`nutritionist/${params.id}`).then({
+      name: user.name,
+      crn: user.crn,
+      cpf: user.cpf,
+      email: user.email,
+      phone: user.phone || '',
+      mobile: user.mobile || '',
+      birth_date: user.birth_date,
+      gender: user.gender,
+      password: user.password,
+    });
+  }, []);
+
+  const editUser = async () => {
+    axios
+      .put(`nutritionists/${user._id}`, user)
+      .then((response) => {
+        if (response.status == 200) {
+          toast.success('Dados editados com sucesso!');
+          alterEditDataMode;
+        } else {
+          toast.error('Houve um erro na edição!');
+          console.error(response.data);
+        }
+      })
+      .catch((error) => {
+        toast.error('Houve um erro na edição!');
+        console.error(error);
+      });
+  };
 
   const alterEditDataMode = (event) => {
     event.preventDefault();
@@ -24,10 +74,10 @@ export default function User() {
   };
 
   const saveEdit = (event) => {
-    console.log(event);
     event.preventDefault();
-    toast.success('Dados editados com sucesso!');
+    editUser();
   };
+
   return (
     <PageBuilder pageName="Meus Dados" userName="João Pablo">
       <Container>
@@ -36,44 +86,117 @@ export default function User() {
           {!editDataMode ? (
             <>
               <TextArea width="80%" label="Nome">
-                João Pablo Vilanir
+                {user.name}
               </TextArea>
               <TextArea width="80%" label="Data de Nascimento">
-                14/10/2002
+                {user.birth_date}
               </TextArea>
               <TextArea width="80%" label="CRN">
-                123-456
+                {user.crn}
               </TextArea>
               <TextArea width="80%" label="CPF">
-                111.111.111-11
+                {user.cpf}
               </TextArea>
               <TextArea width="80%" label="E-mail">
-                joaopablo778@gmail.com
+                {user.email}
               </TextArea>
               <TextArea width="80%" label="Celular">
-                (11) 95355-3207
+                {user.mobile || '(XX) XXXXX-XXXX'}
               </TextArea>
               <TextArea width="80%" label="Telefone">
-                (11) 4245-8911
+                {user.phone}
               </TextArea>
               <Button onClick={alterEditDataMode}>Editar</Button>
             </>
           ) : (
             <>
               <Label>Nome</Label>
-              <Input type="text" placeholder="Digite o nome"></Input>
-              <Label>Data de Nascimento</Label>
-              <Input type="date"></Input>
+              <Input
+                type="text"
+                name="name"
+                id="name"
+                value={user.name}
+                onChange={(event) => handleInputChange(event, setUser)}
+              ></Input>
+
+              <Label>Email</Label>
+              <Input
+                type="email"
+                name="email"
+                id="email"
+                value={user.email}
+                onChange={(event) => handleInputChange(event, setUser)}
+              ></Input>
+
               <Label>CRN</Label>
-              <Input type="text" placeholder="Digite o CRN"></Input>
+              <Input
+                type="text"
+                name="crn"
+                id="crn"
+                value={user.crn}
+                onChange={(event) => handleInputChange(event, setUser)}
+              ></Input>
+
               <Label>CPF</Label>
-              <Input type="text" placeholder="Digite o CPF"></Input>
-              <Label>E-mail</Label>
-              <Input type="email" placeholder="exemplo@gmail.com"></Input>
-              <Label>Celular</Label>
-              <Input type="text" placeholder="Digite o celular"></Input>
+              <Input
+                type="text"
+                name="cpf"
+                id="cpf"
+                value={user.cpf}
+                onChange={(event) => handleInputChange(event, setUser)}
+              ></Input>
+
               <Label>Telefone</Label>
-              <Input type="text" placeholder="Digite o telefone"></Input>
+              <Input
+                type="text"
+                name="phone"
+                id="phone"
+                value={user.phone}
+                onChange={(event) => handleInputChange(event, setUser)}
+              ></Input>
+
+              <Label>Celular</Label>
+              <Input
+                type="text"
+                name="mobile"
+                id="mobile"
+                value={user.mobile}
+                onChange={(event) => handleInputChange(event, setUser)}
+              ></Input>
+
+              <Label>Data de nascimento</Label>
+              <Input
+                type="date"
+                name="birth_date"
+                id="birth_date"
+                value={user.birth_date}
+                onChange={(event) => handleInputChange(event, setUser)}
+              ></Input>
+
+              <Label>Gênero</Label>
+              <fieldset className="fildset">
+                <InputRadio
+                  name="gender"
+                  id="masculino"
+                  value="Masculino"
+                  checked={user.gender === 'Masculino'}
+                  onChange={(event) => handleInputChange(event, setUser)}
+                />
+                <InputRadio
+                  name="gender"
+                  id="feminino"
+                  value="Feminino"
+                  checked={user.gender === 'Feminino'}
+                  onChange={(event) => handleInputChange(event, setUser)}
+                />
+                <InputRadio
+                  name="gender"
+                  id="outro"
+                  value="Outro"
+                  checked={user.gender === 'Outro'}
+                  onChange={(event) => handleInputChange(event, setUser)}
+                />
+              </fieldset>
               <Container>
                 <OutlineButton onClick={alterEditDataMode}>
                   Voltar
