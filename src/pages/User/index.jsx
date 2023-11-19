@@ -1,6 +1,6 @@
 import './user.css';
 import PageBuilder from '../../components/PageBuilder';
-import TextArea from '../../components/TextAreaWithLabel';
+import TextAreaWithLabel from '../../components/TextAreaWithLabel';
 import Form from '../../components/Form';
 import Container from '../../components/Container';
 import SimpleTitle from '../../components/SimpleTitle';
@@ -17,10 +17,8 @@ import { useParams } from 'react-router-dom';
 export default function User() {
   const params = useParams();
   const [editDataMode, setEditDataMode] = useState(false);
-  const [editAddressMode, setEditAddressMode] = useState(false);
-  const [user, setUser] = useState();
 
-  const [editUserRequest, setEditUserRequest] = useState({
+  const [user, setUser] = useState({
     name: '',
     crn: '',
     cpf: '',
@@ -29,30 +27,45 @@ export default function User() {
     mobile: '',
     birth_date: '',
     gender: '',
-    password: '',
+    cep: '',
+    street: '',
+    address_number: '',
+    complement: '',
+    neighborhood: '',
+    city: '',
+    state: '',
   });
 
-  useEffect(() => {
-    axios.get(`nutritionist/${params.id}`).then({
-      name: user.name,
-      crn: user.crn,
-      cpf: user.cpf,
-      email: user.email,
-      phone: user.phone || '',
-      mobile: user.mobile || '',
-      birth_date: user.birth_date,
-      gender: user.gender,
-      password: user.password,
-    });
-  }, []);
+  const getAddressFromCep = async (cep) => {
+    try {
+      const response = await fetch(
+        `https://brasilapi.com.br/api/cep/v1/${cep}`
+      );
+      console.log(response);
+      if (response.status == 200) {
+        const addressData = await response.json();
+        setUser((user) => ({
+          ...user,
+          street: addressData.street,
+          neighborhood: addressData.neighborhood,
+          city: addressData.city,
+          state: addressData.state,
+        }));
+      } else {
+        toast.error('Digite um CEP válido!');
+      }
+    } catch (error) {
+      toast.error('Ocorreu um erro ao consultar CEP');
+    }
+  };
 
   const editUser = async () => {
     axios
-      .put(`nutritionists/${user._id}`, user)
+      .put(`nutritionists/${params.id}`, user)
       .then((response) => {
         if (response.status == 200) {
           toast.success('Dados editados com sucesso!');
-          alterEditDataMode;
+          alterEditDataMode();
         } else {
           toast.error('Houve um erro na edição!');
           console.error(response.data);
@@ -64,19 +77,37 @@ export default function User() {
       });
   };
 
-  const alterEditDataMode = (event) => {
-    event.preventDefault();
+  const alterEditDataMode = () => {
     setEditDataMode(!editDataMode);
-  };
-  const alterEditAddressMode = (event) => {
-    event.preventDefault();
-    setEditAddressMode(!editAddressMode);
   };
 
   const saveEdit = (event) => {
     event.preventDefault();
     editUser();
   };
+
+  useEffect(() => {
+    axios.get(`nutritionist/${params.id}`).then((response) => {
+      setUser({
+        name: response.data.name,
+        crn: response.data.crn,
+        cpf: response.data.cpf,
+        email: response.data.email,
+        phone: response.data.phone || '',
+        mobile: response.data.mobile || '',
+        birth_date: response.data.birth_date,
+        gender: response.data.gender,
+        password: response.data.password,
+        cep: response.data.cep,
+        address: response.data.street,
+        address_number: response.data.address_number,
+        complement: response.data.complement,
+        neighborhood: response.data.neighborhood,
+        city: response.data.city,
+        state: response.data.state,
+      });
+    });
+  }, []);
 
   return (
     <PageBuilder pageName="Meus Dados" userName="João Pablo">
@@ -85,28 +116,83 @@ export default function User() {
           <SimpleTitle>Dados pessoais</SimpleTitle>
           {!editDataMode ? (
             <>
-              <TextArea width="80%" label="Nome">
+              <TextAreaWithLabel width="80%" label="Nome">
                 {user.name}
-              </TextArea>
-              <TextArea width="80%" label="Data de Nascimento">
+              </TextAreaWithLabel>
+              <TextAreaWithLabel width="80%" label="Data de Nascimento">
                 {user.birth_date}
-              </TextArea>
-              <TextArea width="80%" label="CRN">
+              </TextAreaWithLabel>
+              <TextAreaWithLabel width="80%" label="CRN">
                 {user.crn}
-              </TextArea>
-              <TextArea width="80%" label="CPF">
+              </TextAreaWithLabel>
+              <TextAreaWithLabel width="80%" label="CPF">
                 {user.cpf}
-              </TextArea>
-              <TextArea width="80%" label="E-mail">
+              </TextAreaWithLabel>
+              <TextAreaWithLabel width="80%" label="E-mail">
                 {user.email}
-              </TextArea>
-              <TextArea width="80%" label="Celular">
+              </TextAreaWithLabel>
+              <TextAreaWithLabel width="80%" label="Celular">
                 {user.mobile || '(XX) XXXXX-XXXX'}
-              </TextArea>
-              <TextArea width="80%" label="Telefone">
+              </TextAreaWithLabel>
+              <TextAreaWithLabel width="80%" label="Telefone">
                 {user.phone}
-              </TextArea>
-              <Button onClick={alterEditDataMode}>Editar</Button>
+              </TextAreaWithLabel>
+
+              <Label>Gênero</Label>
+              <fieldset className="fildset">
+                <InputRadio
+                  name="gender"
+                  id="masculino"
+                  value="Masculino"
+                  checked={user.gender === 'Masculino'}
+                  onChange={(event) => handleInputChange(event, setUser)}
+                />
+                <InputRadio
+                  name="gender"
+                  id="feminino"
+                  value="Feminino"
+                  checked={user.gender === 'Feminino'}
+                  onChange={(event) => handleInputChange(event, setUser)}
+                />
+                <InputRadio
+                  name="gender"
+                  id="outro"
+                  value="Outro"
+                  checked={user.gender === 'Outro'}
+                  onChange={(event) => handleInputChange(event, setUser)}
+                />
+              </fieldset>
+
+              <SimpleTitle>Endereço</SimpleTitle>
+              <TextAreaWithLabel width="80%" label="CEP">
+                {user.cep || 'Não informado'}
+              </TextAreaWithLabel>
+              <TextAreaWithLabel width="80%" label="Logradouro">
+                {user.street || 'Não informado'}
+              </TextAreaWithLabel>
+              <TextAreaWithLabel width="80%" label="Número">
+                {user.address_number || 'Não informado'}
+              </TextAreaWithLabel>
+              <TextAreaWithLabel width="80%" label="Complemento">
+                {user.complement || 'Não informado'}
+              </TextAreaWithLabel>
+              <TextAreaWithLabel width="80%" label="Bairro">
+                {user.neighborhood || 'Não informado'}
+              </TextAreaWithLabel>
+              <TextAreaWithLabel width="80%" label="Cidade">
+                {user.city || 'Não informado'}
+              </TextAreaWithLabel>
+              <TextAreaWithLabel width="80%" label="UF">
+                {user.state || 'Não informado'}
+              </TextAreaWithLabel>
+              <Button
+                onClick={(event) => {
+                  event.preventDefault();
+                  alterEditDataMode();
+                }}
+              >
+                Editar
+              </Button>
             </>
           ) : (
             <>
@@ -197,69 +283,74 @@ export default function User() {
                   onChange={(event) => handleInputChange(event, setUser)}
                 />
               </fieldset>
-              <Container>
-                <OutlineButton onClick={alterEditDataMode}>
-                  Voltar
-                </OutlineButton>
-                <Button onClick={saveEdit}>Salvar</Button>
-              </Container>
-            </>
-          )}
-        </Form>
-
-        <Form>
-          <SimpleTitle>Endereço</SimpleTitle>
-          {!editAddressMode ? (
-            <>
-              <TextArea width="80%" label="CEP">
-                06783-111
-              </TextArea>
-              <TextArea width="80%" label="Logradouro">
-                Rua Antonio da Silva Pina
-              </TextArea>
-              <TextArea width="80%" label="Número">
-                31
-              </TextArea>
-              <TextArea width="80%" label="Complemento">
-                Não fornecido
-              </TextArea>
-              <TextArea width="80%" label="Bairro">
-                Jardim Record
-              </TextArea>
-              <TextArea width="80%" label="Cidade">
-                Taboão Da Serra
-              </TextArea>
-              <TextArea width="80%" label="UF">
-                SP
-              </TextArea>
-
-              <Button onClick={alterEditAddressMode}>Editar</Button>
-            </>
-          ) : (
-            <>
               <Label>CEP</Label>
-              <Input type="text" placeholder="Digite o CEP"></Input>
+              <Input
+                type="text"
+                placeholder="Digite o CEP"
+                name="cep"
+                value={user.cep}
+                onChange={(event) => {
+                  handleInputChange(event, setUser);
+                  // getAddressFromCep(user.cep);
+                }}
+                onBlur={() => getAddressFromCep(user.cep)}
+              ></Input>
 
               <Label>Logradouro</Label>
-              <Input type="text" placeholder="Digite o logradouro"></Input>
+              <Input
+                type="text"
+                placeholder="Digite o logradouro"
+                name="street"
+                value={user.street}
+                onChange={(event) => handleInputChange(event, setUser)}
+              ></Input>
 
               <Label>Número</Label>
-              <Input type="text" placeholder="Digite o número"></Input>
+              <Input
+                type="text"
+                placeholder="Digite o número"
+                name="address_number"
+                value={user.address_number}
+                onChange={(event) => handleInputChange(event, setUser)}
+              ></Input>
 
               <Label>Complemento</Label>
-              <Input type="text" placeholder="Digite o complemento"></Input>
+              <Input
+                type="text"
+                placeholder="Digite o complemento"
+                name="complement"
+                value={user.complement}
+                onChange={(event) => handleInputChange(event, setUser)}
+              ></Input>
 
               <Label>Bairro</Label>
-              <Input type="text" placeholder="Digite o bairro"></Input>
+              <Input
+                type="text"
+                placeholder="Digite o bairro"
+                name="neighborhood"
+                value={user.neighborhood}
+                onChange={(event) => handleInputChange(event, setUser)}
+              ></Input>
 
               <Label>Cidade</Label>
-              <Input type="text" placeholder="Digite a cidade"></Input>
+              <Input
+                type="text"
+                placeholder="Digite a cidade"
+                name="city"
+                value={user.city}
+                onChange={(event) => handleInputChange(event, setUser)}
+              ></Input>
 
               <Label>UF</Label>
-              <Input type="text" placeholder="Digite a UF"></Input>
-
+              <Input
+                type="text"
+                placeholder="Digite a UF"
+                name="state"
+                value={user.state}
+                onChange={(event) => handleInputChange(event, setUser)}
+              ></Input>
               <Container>
-                <OutlineButton onClick={alterEditAddressMode}>
+                <OutlineButton onClick={alterEditDataMode}>
                   Voltar
                 </OutlineButton>
                 <Button onClick={saveEdit}>Salvar</Button>

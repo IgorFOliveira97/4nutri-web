@@ -1,6 +1,6 @@
 .line {
-    position: relative;
-    margin-bottom: 0;
+    position: absolute;
+    bottom: 0;
     height: 1px;
     width: 100%;
     background-color: var(--color-secondary--);

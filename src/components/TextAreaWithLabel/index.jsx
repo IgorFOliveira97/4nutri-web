@@ -5,7 +5,7 @@ import './text-area-with-label.css';
 
 export default function TextAreaWithLabel({ width = '', label, children }) {
   return (
-    <div className="text-area" style={{ width: width }}>
+    <div className="text-area-with-label" style={{ width: width }}>
       <Label>{label}</Label>
       <SimpleText>{children}</SimpleText>
       <Line />

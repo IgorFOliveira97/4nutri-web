@@ -8,6 +8,7 @@ export default function Input({
   required,
   value,
   onChange,
+  onBlur,
   disabled,
 }) {
   return (
@@ -21,6 +22,7 @@ export default function Input({
       placeholder={placeholder}
       required={required}
       disabled={disabled}
+      onBlur={onBlur}
     ></input>
   );
 }
