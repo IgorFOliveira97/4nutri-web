@@ -68,7 +68,7 @@ export default function Menu() {
             <TextBlock
               icon={MdOutlineSettings}
               display="flex"
-              onClick={() => navigate('/user')}
+              onClick={() => navigate('/user/')}
             >
               Meus dados
             </TextBlock>

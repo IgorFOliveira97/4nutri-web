@@ -33,7 +33,7 @@ function App() {
             element={<Home />}
             errorElement={<ErrorPage />}
           />
-          <Route path="/user" element={<User />} />
+          <Route path="/user/:id" element={<User />} />
           <Route path="/user/registration" element={<UserRegistration />} />
           <Route path="/login" element={<Login />} />
           <Route path="/foods" element={<></>} />
