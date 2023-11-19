@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import Button from '../../components/Button';
 import OutButton from '../../components/OutlineButton';
-import Container from '../../components/Container';
+import Card from '../../components/CardFood';
 
 Modal.setAppElement('#root');
 
@@ -98,48 +98,30 @@ export default function Foods() {
         <SimpleTitle>Alimentos cadastrados</SimpleTitle>
         <br />
         <div className="food-container">
-          <div className="food">
-            <div className="header">
-              <img src={banana} alt=""></img>
-            </div>
-            <div className="footer">
-              <h4>Banana</h4>
-              <h5>Proteina: 20g</h5>
-              <h5>Carboidrato: 20g</h5>
-              <h5>Gordura: 20g</h5>
-              <div className="button-container">
-                <Button onClick={openModal}>Ver Alimento</Button>
-              </div>
-            </div>
-          </div>
-          <div className="food">
-            <div className="header">
-              <img src={hamburguer} alt=""></img>
-            </div>
-            <div className="footer">
-              <h4>Hamburguer</h4>
-              <h5>Proteina: 20g</h5>
-              <h5>Carboidrato: 20g</h5>
-              <h5>Gordura: 20g</h5>
-              <div className="button-container">
-                <Button onClick={openModal}>Ver Alimento</Button>
-              </div>
-            </div>
-          </div>
-          <div className="food">
-            <div className="header">
-              <img src={hamburguer} alt=""></img>
-            </div>
-            <div className="footer">
-              <h4>Hamburguer</h4>
-              <h5>Proteina: 20g</h5>
-              <h5>Carboidrato: 20g</h5>
-              <h5>Gordura: 20g</h5>
-              <div className="button-container">
-                <Button onClick={openModal}>Ver Alimento</Button>
-              </div>
-            </div>
-          </div>
+          <Card
+            img={banana}
+            title="Banana"
+            protein="20g"
+            carbs="20g"
+            fat="20g"
+            onClick={openModal}
+          ></Card>
+          <Card
+            img={hamburguer}
+            title="Hamburguer"
+            protein="20g"
+            carbs="20g"
+            fat="20g"
+            onClick={openModal}
+          ></Card>
+          <Card
+            img={hamburguer}
+            title="Hamburguer"
+            protein="20g"
+            carbs="20g"
+            fat="20g"
+            onClick={openModal}
+          ></Card>
         </div>
       </div>
     </PageBuilder>

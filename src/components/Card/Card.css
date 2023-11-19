@@ -1,25 +1,25 @@
-  .card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgb(250, 246, 246);
-    padding: 0px;
-    width: 350px;
-    height: 500px;
-    text-align: center;
-    margin: 0 10px; /* Adiciona margem entre os cards */
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgb(250, 246, 246);
+  padding: 0px;
+  width: 350px;
+  height: 500px;
+  text-align: center;
+  margin: 0 10px; /* Adiciona margem entre os cards */
 }
 
-.card-header{
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    height: 10%;
-    color: #fff;
-  }
+.card-header {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  height: 10%;
+  color: #fff;
+}
 
-  .card-header{
-    margin-bottom: 0;
-    width:"100%";
-  }
-  .card-body{
-    margin-top: 20px;
-  }
+.card-header {
+  margin-bottom: 0;
+  width: '100%';
+}
+.card-body {
+  margin-top: 20px;
+}
