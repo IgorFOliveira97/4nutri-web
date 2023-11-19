@@ -22,13 +22,17 @@ export default function Login() {
       .then((response) => {
         if (response.status == 201) {
           toast.success('Login realizado com sucesso!');
-        } else if (response.status == 400) {
+        } else if (response.status == 401) {
           toast.error('E-mail ou senha inválidos!');
         }
       })
       .catch((error) => {
-        toast.error('E-mail ou senha inválidos!');
-        console.log(error);
+        if (error.response.status == 401) {
+          toast.error('E-mail ou senha inválidos!');
+        } else {
+          toast.error('Ocorreu um erro no login!');
+          console.log(error);
+        }
       });
   };
 

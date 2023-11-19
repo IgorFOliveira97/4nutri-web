@@ -96,7 +96,7 @@ export default function UserRegistration() {
         type: 'error',
         mensagem: 'Necessario preencher o campo CRN!',
       });
-    if (userData.crn.length < 11 || userData.crn.length > 11)
+    if (userData.crn.length != 7)
       return setStatus({
         type: 'error',
         mensagem: 'CRN invalido!',
@@ -121,7 +121,7 @@ export default function UserRegistration() {
         type: 'error',
         mensagem: 'Necessario preencher o campo celular!',
       });
-    if (userData.mobile.length < 11 || userData.mobile.length > 11)
+    if (userData.mobile.length < 11)
       return setStatus({
         type: 'error',
         mensagem: 'Número invalido!',
