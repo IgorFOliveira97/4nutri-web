@@ -13,33 +13,38 @@ import handleInputChange from '../../handlers/input.handler';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const initialFoodState = {
-  name: '',
-  description: '',
-  energy: '',
-  protein: '',
-  lipids: '',
-  carbohydrate: '',
-  dietary_fiber: '',
-  calcium: '',
-  magnesium: '',
-  vitaminC: '',
-  cholesterol: '',
-};
-
 export default function FoodsRegistration() {
   const navigate = useNavigate();
 
-  const [food, setFood] = useState(initialFoodState);
+  const [food, setFood] = useState({
+    photo: '',
+    name: '',
+    description: '',
+    energy: '',
+    protein: '',
+    lipids: '',
+    carbohydrate: '',
+    dietary_fiber: '',
+    calcium: '',
+    magnesium: '',
+    vitaminC: '',
+    cholesterol: '',
+  });
+
+  const [status, setStatus] = useState({
+    type: '',
+    mensagem: '',
+  });
 
   const saveFood = async (event) => {
     event.preventDefault();
+    if (!validate()) return;
     axios
       .post('/food', food)
       .then((response) => {
         if (response.status == 201) {
           toast.success('Alimento cadastrado com sucesso');
-          setFood(initialFoodState);
+          setFood(food);
         } else {
           toast.error('Houve um erro no cadastro do alimento');
           console.error(response.data);
@@ -51,12 +56,98 @@ export default function FoodsRegistration() {
       });
   };
 
+  function validate() {
+    if (!food.photo)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Necessario adicionar uma foto!',
+      });
+    if (!food.name)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Necessario preencher o campo nome!',
+      });
+    if (!food.description)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Necessario preencher o campo descrição!',
+      });
+    if (!food.calcium)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Necessario preencher o campo de calcio!',
+      });
+    if (!food.magnesium)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Necessario preencher o campo de magnesio!',
+      });
+    if (!food.vitaminC)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Necessario preencher o campo de vitamina C!',
+      });
+    if (!food.energy)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Necessario preencher o campo de energia!',
+      });
+    if (!food.protein)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Necessario preencher o campo de proteina!',
+      });
+    if (!food.lipids)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Necessario preencher o campo de lipideos!',
+      });
+    if (!food.cholesterol)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Necessario preencher o campo de colesterol!',
+      });
+    if (!food.carbohydrate)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Necessario preencher o campo de carboidrato!',
+      });
+    if (!food.dietary_fiber)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Necessario preencher o campo de Fibra Alimentar!',
+      });
+
+    return true;
+  }
+
   return (
     <PageBuilder pageName="Cadastre um novo alimento" userName="João Pablo">
       <Container>
         <Form>
           <SimpleTitle>Novo Alimento</SimpleTitle>
-          <br />
+          {status.type === 'success' ? (
+            <p style={{ color: 'green', fontSize: '20px', margin: '10px' }}>
+              {status.mensagem}
+            </p>
+          ) : (
+            ''
+          )}
+          {status.type === 'error' ? (
+            <p style={{ color: '#ff0000', fontSize: '20px', margin: '10px' }}>
+              {status.mensagem}
+            </p>
+          ) : (
+            ''
+          )}
+          <Label>Foto</Label>
+          <Input
+            type="file"
+            name="photo"
+            accept="image/*"
+            value={food.photo}
+            onChange={(event) => handleInputChange(event, setFood)}
+          ></Input>
           <Label>Nome do alimento</Label>
           <Input
             type="text"
