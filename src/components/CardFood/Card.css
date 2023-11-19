@@ -1,0 +1,55 @@
+.food .footer {
+  background: #80c489;
+  box-shadow: 5px 5px 15px rgba(201, 21, 21, 0.08);
+  border-radius: 0px 0px 10px 10px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  display: block;
+}
+
+.food .footer h4 {
+  color: #000000;
+  font-size: 27px;
+  line-height: 50px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  margin-top: -20px;
+  text-align: center;
+}
+
+.food .footer h5 {
+  text-align: center;
+  font-size: 18px;
+  line-height: 22px;
+  color: #331e1e;
+  padding: 0 16px;
+}
+
+.food img {
+  border-radius: 10px 10px 0px 0px;
+  height: 200px;
+  width: 280px;
+  position: relative;
+  bottom: 0px;
+  margin-left: 0px;
+}
+
+.food {
+  justify-content: center;
+  align-items: center;
+}
+.food {
+  width: 280px;
+  margin: 0 10px;
+}
+
+.food .header {
+  background-color: #034d28;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.button-container {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px; /* Adiciona espaçamento entre os botões */
+}
