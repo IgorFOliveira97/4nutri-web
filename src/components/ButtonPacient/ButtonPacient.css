@@ -1,18 +1,17 @@
+.button-pacient {
+  margin-top: 10px;
+  background-color: rgb(21, 114, 57);
+  color: #080808;
+  padding: 15px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-.button {
-    margin-top: 10px;
-    background-color: rgb(21, 114, 57);
-    color: #080808;
-    padding: 15px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .button:hover {
-    background-color: var(--color-secondary--);
-    /* Cor de fundo ao passar o mouse */
-  }
+.button-pacient:hover {
+  background-color: var(--color-secondary--);
+  /* Cor de fundo ao passar o mouse */
+}

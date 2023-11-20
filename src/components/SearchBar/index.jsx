@@ -1,5 +1,5 @@
 import Input from '../../components/Input';
-import Button from '../Button';
+import ButtonPacient from '../ButtonPacient';
 import { useNavigate } from 'react-router-dom';
 import './searchBar.css';
 
@@ -18,7 +18,9 @@ export default function searchBar(props) {
           id="pesquisar"
         />
 
-        <Button onClick={() => navigate(props.navigate)}>{props.button}</Button>
+        <ButtonPacient onClick={() => navigate(props.navigate)}>
+          {props.button}
+        </ButtonPacient>
       </div>
     </div>
   );

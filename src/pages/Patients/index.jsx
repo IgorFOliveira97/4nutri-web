@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import imagem from '../../assets/images/avatar-padrao.png';
-import Button from '../../components/ButtonPacient';
+import ButtonPacient from '../../components/ButtonPacient';
 import PageBuilder from '../../components/PageBuilder';
 import SearchBar from '../../components/SearchBar';
 import './Patient.css';
@@ -42,48 +42,18 @@ export default function Patients() {
                   <h5>{`Peso: ${patient.weight} kg`}</h5>
                   <p>{`Data de nascimento: ${patient.birth_date}`}</p>
                   <div className="button-container">
-                    <Button
+                    <ButtonPacient
                       onClick={() =>
                         navigate(`/patients/details/${patient._id}`)
                       }
                     >
                       Ver Perfil
-                    </Button>
+                    </ButtonPacient>
                   </div>
                 </div>
               </div>
             );
           })}
-        {/* <div className="character">
-          <div className="header">
-            <img src={imagem} alt=""></img>
-          </div>
-          <div className="footer">
-            <h4>Igor</h4>
-            <h5>Musculoso</h5>
-            <p>Saudavel</p>
-            <div className="button-container">
-              <Button onClick={() => navigate('/patients/details')}>
-                Ver Perfil
-              </Button>
-            </div>
-          </div>
-        </div>
-        <div className="character">
-          <div className="header">
-            <img src={imagem} alt=""></img>
-          </div>
-          <div className="footer">
-            <h4>Igor</h4>
-            <h5>Musculoso</h5>
-            <p>Saudavel</p>
-            <div className="button-container">
-              <Button onClick={() => navigate('/patients/details')}>
-                Ver Perfil
-              </Button>
-            </div>
-          </div>
-        </div> */}
       </div>
     </PageBuilder>
   );

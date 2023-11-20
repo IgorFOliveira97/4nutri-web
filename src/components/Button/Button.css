@@ -1,10 +1,7 @@
 .button {
   margin-top: 10px;
-  /* Alinha o botão na parte inferior do card */
   background-color: var(--color-primary--);
-  /* Cor de fundo do botão */
   color: #fff;
-  /* Cor do texto do botão */
   padding: 15px;
   border: none;
   cursor: pointer;

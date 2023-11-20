@@ -8,7 +8,7 @@ function ButtonPacient({
 }) {
   return (
     <button
-      className="button"
+      className="button-pacient"
       style={{ width: width, borderRadius: radius }}
       onClick={onClick}
     >
