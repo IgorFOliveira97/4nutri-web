@@ -1,21 +1,24 @@
+import './foods.css';
 import PageBuilder from '../../components/PageBuilder';
 import SearchBar from '../../components/SearchBar';
 import SimpleTitle from '../../components/SimpleTitle';
 import banana from '../../assets/images/banana.jpg';
 import hamburguer from '../../assets/images/hamburguer.jpg';
-import './foods.css';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import Button from '../../components/Button';
 import OutButton from '../../components/OutlineButton';
 import Card from '../../components/CardFood';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 Modal.setAppElement('#root');
 
 export default function Foods() {
   const navigate = useNavigate();
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [foods, setFoods] = useState();
 
   function openModal() {
     setIsOpen(true);
@@ -24,6 +27,18 @@ export default function Foods() {
   function closeModal() {
     setIsOpen(false);
   }
+
+  useEffect(() => {
+    axios
+      .get(`foods/6550d61a6cd5c44a4c75bb60`)
+      .then((response) => {
+        setFoods(response.data);
+      })
+      .catch((error) => {
+        toast.error('Ocorreu um erro ao consultar os alimentos!');
+        console.error(error);
+      });
+  }, []);
 
   return (
     <PageBuilder pageName="Tabela de Alimentos" userName="João Pablo">
@@ -98,30 +113,20 @@ export default function Foods() {
         <SimpleTitle>Alimentos cadastrados</SimpleTitle>
         <br />
         <div className="food-container">
-          <Card
-            img={banana}
-            title="Banana"
-            protein="20g"
-            carbs="20g"
-            fat="20g"
-            onClick={openModal}
-          ></Card>
-          <Card
-            img={hamburguer}
-            title="Hamburguer"
-            protein="20g"
-            carbs="20g"
-            fat="20g"
-            onClick={openModal}
-          ></Card>
-          <Card
-            img={hamburguer}
-            title="Hamburguer"
-            protein="20g"
-            carbs="20g"
-            fat="20g"
-            onClick={openModal}
-          ></Card>
+          {foods &&
+            foods.map((food) => {
+              return (
+                <Card
+                  key={food._id}
+                  img={banana}
+                  title={food.name}
+                  protein={food.protein}
+                  carbs={food.carbohydrate}
+                  fat="20g"
+                  onClick={openModal}
+                ></Card>
+              );
+            })}
         </div>
       </div>
     </PageBuilder>

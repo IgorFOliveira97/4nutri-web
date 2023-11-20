@@ -1,5 +1,6 @@
 import Button from '../Button';
 import './Card.css';
+import Container from '../Container/';
 
 export default function CardFood(props) {
   return (
@@ -12,9 +13,9 @@ export default function CardFood(props) {
         <h5>Proteína: {props.protein}</h5>
         <h5>Carboidratos: {props.carbs}</h5>
         <h5>Gordura: {props.fat}</h5>
-        <div className="button-container">
+        <Container>
           <Button onClick={props.onClick}>Ver Alimento</Button>
-        </div>
+        </Container>
       </div>
     </div>
   );
