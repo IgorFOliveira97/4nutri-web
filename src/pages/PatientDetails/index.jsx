@@ -49,7 +49,7 @@ export default function PatientDetails() {
 
   const saveEdit = () => {
     axios
-      .put(`patients/${params.id}`, patient)
+      .put(`patient/${params.id}`, patient)
       .then((response) => {
         if (response.status == 200) {
           setIsEditing(false);

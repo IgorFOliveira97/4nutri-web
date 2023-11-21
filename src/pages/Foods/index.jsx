@@ -3,7 +3,6 @@ import PageBuilder from '../../components/PageBuilder';
 import SearchBar from '../../components/SearchBar';
 import SimpleTitle from '../../components/SimpleTitle';
 import banana from '../../assets/images/banana.jpg';
-import hamburguer from '../../assets/images/hamburguer.jpg';
 import Modal from 'react-modal';
 import Button from '../../components/Button';
 import OutButton from '../../components/OutlineButton';
@@ -30,6 +29,7 @@ export default function Foods() {
 
   useEffect(() => {
     axios
+      //Após o / será inserido o id do usuário logado
       .get(`foods/6550d61a6cd5c44a4c75bb60`)
       .then((response) => {
         setFoods(response.data);

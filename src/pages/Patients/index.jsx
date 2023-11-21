@@ -12,7 +12,8 @@ export default function Patients() {
   const [patients, setPatients] = useState();
 
   useEffect(() => {
-    axios.get('patient').then((response) => {
+    //Após o / será inserido o id do usuário logado
+    axios.get('patients/6550d61a6cd5c44a4c75bb60').then((response) => {
       setPatients(response.data);
     });
   }, []);

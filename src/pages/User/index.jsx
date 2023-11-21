@@ -61,7 +61,7 @@ export default function User() {
 
   const editUser = async () => {
     axios
-      .put(`nutritionists/${params.id}`, user)
+      .put(`nutritionist/${params.id}`, user)
       .then((response) => {
         if (response.status == 200) {
           toast.success('Dados editados com sucesso!');

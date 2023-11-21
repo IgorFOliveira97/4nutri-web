@@ -40,7 +40,7 @@ export default function FoodsRegistration() {
     event.preventDefault();
     if (!validate()) return;
     axios
-      .post('/food', food)
+      .post('food', food)
       .then((response) => {
         if (response.status == 201) {
           toast.success('Alimento cadastrado com sucesso');
