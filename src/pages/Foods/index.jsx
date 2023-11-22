@@ -30,7 +30,7 @@ export default function Foods() {
   useEffect(() => {
     axios
       //Após o / será inserido o id do usuário logado
-      .get(`foods/6550d61a6cd5c44a4c75bb60`)
+      .get(`foods/655a374944bab4bb60e39fbb`)
       .then((response) => {
         setFoods(response.data);
       })

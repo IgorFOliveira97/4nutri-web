@@ -17,6 +17,7 @@ import handleInputChange from '../../handlers/input.handler';
 
 export default function PatientRegistration() {
   const [patientData, setPatientData] = useState({
+    nutritionist_id: '655a374944bab4bb60e39fbb',
     name: '',
     phone: '',
     mobile: '',

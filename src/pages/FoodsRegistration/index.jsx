@@ -17,6 +17,7 @@ export default function FoodsRegistration() {
   const navigate = useNavigate();
 
   const [food, setFood] = useState({
+    nutritionist_id: '655a374944bab4bb60e39fbb',
     photo: '',
     name: '',
     description: '',
@@ -52,7 +53,8 @@ export default function FoodsRegistration() {
       })
       .catch((error) => {
         toast.error('Ocorreu um erro no cadastro do alimento!');
-        console.error(error.data);
+        console.error(error);
+        console.log(food);
       });
   };
 

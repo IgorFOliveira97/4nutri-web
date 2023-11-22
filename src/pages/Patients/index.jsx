@@ -13,7 +13,7 @@ export default function Patients() {
 
   useEffect(() => {
     //Após o / será inserido o id do usuário logado
-    axios.get('patients/6550d61a6cd5c44a4c75bb60').then((response) => {
+    axios.get('patients/655a374944bab4bb60e39fbb').then((response) => {
       setPatients(response.data);
     });
   }, []);
