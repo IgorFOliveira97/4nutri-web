@@ -12,7 +12,7 @@ export default function CardFood(props) {
         <h4>{props.title}</h4>
         <h5>Proteína: {props.protein}</h5>
         <h5>Carboidratos: {props.carbs}</h5>
-        <h5>Gordura: {props.fat}</h5>
+        <h5>Vitamina C: {props.vitaminC}</h5>
         <Container>
           <Button onClick={props.onClick}>Ver Alimento</Button>
         </Container>
