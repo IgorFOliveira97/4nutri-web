@@ -21,7 +21,7 @@ export default function Patients() {
   }, []);
   console.log(patients);
   return (
-    <PageBuilder pageName="Meus Pacientes" userName="João Pablo">
+    <PageBuilder pageName="Meus Pacientes">
       <SearchBar
         button="Novo paciente"
         navigate="/patients/registration"

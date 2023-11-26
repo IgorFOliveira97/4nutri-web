@@ -44,7 +44,7 @@ export default function Foods() {
   }, []);
 
   return (
-    <PageBuilder pageName="Tabela de Alimentos" userName="João Pablo">
+    <PageBuilder pageName="Tabela de Alimentos">
       <SearchBar
         button="Novo Alimento"
         navigate="/foods/registration"

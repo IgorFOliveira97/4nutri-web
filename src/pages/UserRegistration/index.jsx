@@ -169,7 +169,7 @@ export default function UserRegistration() {
   }
 
   return (
-    <PageBuilder pageName="Cadastro de Usuário" userName="João Pablo">
+    <PageBuilder pageName="Cadastro de Usuário">
       <Form>
         <SimpleTitle>Cadastre-se</SimpleTitle>
         {status.type === 'success' ? (

@@ -54,7 +54,7 @@ export default function PatientRegistration() {
   };
 
   return (
-    <PageBuilder pageName="Cadastre seu paciente" userName="João Pablo">
+    <PageBuilder pageName="Cadastre seu paciente">
       <Tabs>
         <TabList className="tabela">
           <Tab>Dados Pessoais</Tab>

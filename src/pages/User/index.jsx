@@ -110,7 +110,7 @@ export default function User() {
   }, []);
 
   return (
-    <PageBuilder pageName="Meus Dados" userName="João Pablo">
+    <PageBuilder pageName="Meus Dados">
       <Container>
         <Form>
           <SimpleTitle>Dados pessoais</SimpleTitle>

@@ -126,7 +126,7 @@ export default function FoodsRegistration() {
   }
 
   return (
-    <PageBuilder pageName="Cadastre um novo alimento" userName="João Pablo">
+    <PageBuilder pageName="Cadastre um novo alimento">
       <Container>
         <Form>
           <SimpleTitle>Novo Alimento</SimpleTitle>

@@ -27,7 +27,7 @@ export default function Login() {
     }
   });
   return (
-    <PageBuilder pageName="Login" userName="João Pablo">
+    <PageBuilder pageName="Login">
       <Form>
         <SimpleTitle>Entrar</SimpleTitle>
         <br />
