@@ -4,16 +4,18 @@ import ButtonPacient from '../../components/ButtonPacient';
 import PageBuilder from '../../components/PageBuilder';
 import SearchBar from '../../components/SearchBar';
 import './Patient.css';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { Context } from '../../Context/AuthProvider';
 
 export default function Patients() {
   const navigate = useNavigate();
   const [patients, setPatients] = useState();
+  const { userData } = useContext(Context);
 
   useEffect(() => {
     //Após o / será inserido o id do usuário logado
-    axios.get('patients/655a374944bab4bb60e39fbb').then((response) => {
+    axios.get(`patients/${userData._id}`).then((response) => {
       setPatients(response.data);
     });
   }, []);

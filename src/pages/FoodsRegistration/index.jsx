@@ -8,16 +8,18 @@ import Textarea from '../../components/TextArea';
 import './foods.css';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import handleInputChange from '../../handlers/input.handler';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { Context } from '../../Context/AuthProvider';
 
 export default function FoodsRegistration() {
   const navigate = useNavigate();
+  const { userData } = useContext(Context);
 
   const [food, setFood] = useState({
-    nutritionist_id: '655a374944bab4bb60e39fbb',
+    nutritionist_id: userData._id,
     photo: '',
     name: '',
     description: '',

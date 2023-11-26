@@ -3,7 +3,7 @@ import Form from '../../components/Form';
 import Container from '../../components/Container';
 import SimpleTitle from '../../components/SimpleTitle';
 import Input from '../../components/Input';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Label from '../../components/Label';
 import banana from '../../assets/images/banana.jpg';
 import Textarea from '../../components/TextArea';
@@ -15,13 +15,15 @@ import handleInputChange from '../../handlers/input.handler';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { Context } from '../../Context/AuthProvider';
 
 export default function FoodsEdit() {
   const navigate = useNavigate();
   const params = useParams();
+  const { userData } = useContext(Context);
 
   const [food, setFood] = useState({
-    nutritionist_id: '655a374944bab4bb60e39fbb',
+    nutritionist_id: userData._id,
     photo: '',
     name: '',
     description: '',

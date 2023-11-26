@@ -4,38 +4,28 @@ import Input from '../../components/Input';
 import SimpleText from '../../components/SimpleText';
 import SimpleTitle from '../../components/SimpleTitle';
 import Button from '../../components/Button';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import handleInputChange from '../../handlers/input.handler';
-import axios from 'axios';
-import { toast } from 'react-toastify';
+import { Context } from '../../Context/AuthProvider';
 
 export default function Login() {
-  const [userData, setUserData] = useState({
+  const { handleLogin } = useContext(Context);
+
+  const [loginData, setLoginData] = useState({
     email: '',
     password: '',
   });
-
-  const sendLoginData = async (event) => {
+  const sendLogin = (event) => {
     event.preventDefault();
-    await axios
-      .post('login', userData)
-      .then((response) => {
-        if (response.status == 201) {
-          toast.success('Login realizado com sucesso!');
-        } else if (response.status == 401) {
-          toast.error('E-mail ou senha inválidos!');
-        }
-      })
-      .catch((error) => {
-        if (error.response.status == 401) {
-          toast.error('E-mail ou senha inválidos!');
-        } else {
-          toast.error('Ocorreu um erro no login!');
-          console.log(error);
-        }
-      });
+    handleLogin(loginData);
   };
-
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    if (user || token) {
+      localStorage.clear();
+    }
+  });
   return (
     <PageBuilder pageName="Login" userName="João Pablo">
       <Form>
@@ -45,19 +35,19 @@ export default function Login() {
         <Input
           type="email"
           name="email"
-          value={userData.email}
-          onChange={(event) => handleInputChange(event, setUserData)}
+          value={loginData.email}
+          onChange={(event) => handleInputChange(event, setLoginData)}
         ></Input>
 
         <SimpleText>Senha</SimpleText>
         <Input
           type="password"
           name="password"
-          value={userData.password}
-          onChange={(event) => handleInputChange(event, setUserData)}
+          value={loginData.password}
+          onChange={(event) => handleInputChange(event, setLoginData)}
         ></Input>
 
-        <Button width="300px" onClick={(event) => sendLoginData(event)}>
+        <Button width="300px" onClick={sendLogin}>
           Entrar
         </Button>
       </Form>

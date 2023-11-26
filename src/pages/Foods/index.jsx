@@ -9,9 +9,10 @@ import OutButton from '../../components/OutlineButton';
 import Card from '../../components/CardFood';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Container from '../../components/Container';
+import { Context } from '../../Context/AuthProvider';
 
 Modal.setAppElement('#root');
 
@@ -19,6 +20,7 @@ export default function Foods() {
   const navigate = useNavigate();
   const [modalIsOpen, setIsOpen] = useState(false);
   const [foods, setFoods] = useState();
+  const { userData } = useContext(Context);
 
   function openModal() {
     setIsOpen(true);
@@ -31,7 +33,7 @@ export default function Foods() {
   useEffect(() => {
     axios
       //Após o / será inserido o id do usuário logado
-      .get(`foods/655a374944bab4bb60e39fbb`)
+      .get(`foods/${userData._id}`)
       .then((response) => {
         setFoods(response.data);
       })
@@ -57,7 +59,7 @@ export default function Foods() {
           {foods &&
             foods.map((food) => {
               return (
-                <>
+                <React.Fragment key={food._id}>
                   <Modal
                     isOpen={modalIsOpen}
                     onRequestClose={closeModal}
@@ -131,7 +133,7 @@ export default function Foods() {
                     vitaminC={food.vitaminC}
                     onClick={openModal}
                   ></Card>
-                </>
+                </React.Fragment>
               );
             })}
         </div>

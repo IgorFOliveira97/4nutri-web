@@ -10,14 +10,16 @@ import TextArea from '../../components/TextArea';
 import Button from '../../components/Button';
 
 import './PatientRegistration.css';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import handleInputChange from '../../handlers/input.handler';
+import { Context } from '../../Context/AuthProvider';
+const { userData } = useContext(Context);
 
 export default function PatientRegistration() {
   const [patientData, setPatientData] = useState({
-    nutritionist_id: '655a374944bab4bb60e39fbb',
+    nutritionist_id: userData._id,
     name: '',
     phone: '',
     mobile: '',

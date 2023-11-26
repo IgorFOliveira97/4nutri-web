@@ -40,7 +40,7 @@ function Home() {
             Standard oferece recursos essenciais para o acompanhamento preciso
             da dieta, garantindo um suporte eficaz às metas nutricionais dos
             clientes.promovendo resultados excepcionais para os pacientes.
-            <p className="text">equivalente a</p>
+            <span className="text">equivalente a</span>
           </SimpleText>
           <DecorativeText>R$ 19,90 /mês</DecorativeText>
           <SimpleText className="discount-paragraph">
@@ -54,7 +54,7 @@ function Home() {
             patamar, proporcionando insights aprofundados e promovendo
             resultados excepcionais para os pacientes.
           </SimpleText>
-          <p className="text">equivalente a</p>
+          <span className="text">equivalente a</span>
           <DecorativeText>R$ 19,90 /mês</DecorativeText>
           <SimpleText className="discount-paragraph">
             R$ 238,90 à vista
@@ -67,7 +67,7 @@ function Home() {
             e integrada para otimizar a gestão de pacientes, personalização de
             dietas e análise avançada de dados nutricionais.
           </SimpleText>
-          <p className="text">equivalente a</p>
+          <span className="text">equivalente a</span>
           <DecorativeText>R$ 56,24 /mês</DecorativeText>
           <SimpleText className="discount-paragraph">
             R$ 674,90 à vista
