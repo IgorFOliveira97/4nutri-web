@@ -15,9 +15,9 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import handleInputChange from '../../handlers/input.handler';
 import { Context } from '../../Context/AuthProvider';
-const { userData } = useContext(Context);
 
 export default function PatientRegistration() {
+  const { userData } = useContext(Context);
   const [patientData, setPatientData] = useState({
     nutritionist_id: userData._id,
     name: '',

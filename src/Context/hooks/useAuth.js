@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { checkTokenExpiration } from '../../middleware/autentication.middleware';
 
 export default function useAuth() {
   const navigate = useNavigate();
@@ -13,9 +14,14 @@ export default function useAuth() {
     const token = localStorage.getItem('token');
     const user = localStorage.getItem('user');
     if (token && user) {
-      axios.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
-      setAuthenticated(true);
-      setUserData(JSON.parse(user));
+      if (checkTokenExpiration(token)) {
+        axios.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
+        setAuthenticated(true);
+        setUserData(JSON.parse(user));
+      } else {
+        toast.warning('Sua sessão expirou');
+        navigate('/login');
+      }
     }
     setLoading(false);
   }, []);
@@ -49,5 +55,11 @@ export default function useAuth() {
         console.log(error);
       });
   }
-  return { authenticated, loading, handleLogin, userData };
+  function handleLogout() {
+    localStorage.removeItem('token', 'user');
+    axios.defaults.headers.Authorization = undefined;
+    navigate('/login');
+    setAuthenticated(false);
+  }
+  return { authenticated, loading, handleLogin, handleLogout, userData };
 }

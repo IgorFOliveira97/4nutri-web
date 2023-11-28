@@ -20,12 +20,13 @@ import FoodsEdit from './pages/FoodsEdit';
 import axios from 'axios';
 import { AuthProvider, Context } from './Context/AuthProvider';
 import { useContext } from 'react';
+import Loader from './components/Loader';
 
 function PrivateRoute({ children }) {
   const { loading, authenticated, userData } = useContext(Context);
-  console.log('User data', userData);
+
   if (loading) {
-    return <h1>Carregando</h1>;
+    return <Loader />;
   }
   if (!authenticated || !userData) {
     return <Navigate to="/login" />;

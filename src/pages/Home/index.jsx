@@ -16,7 +16,7 @@ function Home() {
 
   return (
     <PageBuilder>
-      {!authenticated ? (
+      {!authenticated && !userData ? (
         <>
           <SideCard title="Ofereça o melhor atendimento nutricional para seus pacientes">
             <List>
@@ -86,7 +86,7 @@ function Home() {
         </>
       ) : (
         <Container>
-          <SimpleTitle>Seja bem-vindo(a) {userData.name}</SimpleTitle>
+          <SimpleTitle>Seja bem-vindo(a) {userData?.name}</SimpleTitle>
         </Container>
       )}
     </PageBuilder>

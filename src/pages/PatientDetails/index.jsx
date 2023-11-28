@@ -89,11 +89,11 @@ export default function PatientDetails() {
     <div>
       <PageBuilder>
         <Tabs>
-          <TabList className="detalhes">
+          <TabList className="tab-list">
             <Tab>Dados Pessoais</Tab>
             <Tab>Consultas</Tab>
           </TabList>
-          <TabPanel>
+          <TabPanel className="tab-panel">
             {patient && (
               <>
                 <Form>
@@ -210,7 +210,7 @@ export default function PatientDetails() {
             <table>
               <thead>
                 <tr>
-                  <th>ID</th>
+                  <th>Data</th>
                   <th>Nome</th>
                   <th>Email</th>
                 </tr>

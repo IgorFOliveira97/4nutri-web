@@ -145,6 +145,7 @@ export default function User() {
                   id="masculino"
                   value="Masculino"
                   checked={user.gender === 'Masculino'}
+                  disabled
                   onChange={(event) => handleInputChange(event, setUser)}
                 />
                 <InputRadio
@@ -152,6 +153,7 @@ export default function User() {
                   id="feminino"
                   value="Feminino"
                   checked={user.gender === 'Feminino'}
+                  disabled
                   onChange={(event) => handleInputChange(event, setUser)}
                 />
                 <InputRadio
@@ -159,6 +161,7 @@ export default function User() {
                   id="outro"
                   value="Outro"
                   checked={user.gender === 'Outro'}
+                  disabled
                   onChange={(event) => handleInputChange(event, setUser)}
                 />
               </fieldset>

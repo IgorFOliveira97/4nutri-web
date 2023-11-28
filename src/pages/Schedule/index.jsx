@@ -153,7 +153,6 @@ export default class Demo extends React.PureComponent {
             />
           </Scheduler>
         </Paper>
-
         {/* Modal para exibir detalhes do compromisso */}
         <Modal
           open={isModalOpen}
@@ -186,7 +185,6 @@ export default class Demo extends React.PureComponent {
             </p>
           </Box>
         </Modal>
-
         {/* Modal para adicionar um novo compromisso */}
         <Modal
           open={isNewAppointmentModalOpen}
@@ -247,11 +245,10 @@ export default class Demo extends React.PureComponent {
             </Button>
           </Box>
         </Modal>
-
         {/* Botão para abrir o modal de novo compromisso */}
-        {/* <Button onClick={this.openNewAppointmentModal}>
+        <Button onClick={this.openNewAppointmentModal}>
           Adicionar Compromisso
-        </Button> */}
+        </Button>
       </PageBuilder>
     );
   }
