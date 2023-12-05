@@ -243,7 +243,10 @@ export default function Appoiment() {
             >
               {foods &&
                 foods.map((food) => (
-                  <Options key={food._id}>{food.name}</Options>
+                  <>
+                    <Options>Selecione um alimento</Options>
+                    <Options key={food._id}>{food.name}</Options>
+                  </>
                 ))}
             </Select>
             <DashedButton
@@ -316,7 +319,10 @@ export default function Appoiment() {
             >
               {foods &&
                 foods.map((food) => (
-                  <Options key={food._id}>{food.name}</Options>
+                  <>
+                    <Options>Selecione um alimento</Options>
+                    <Options key={food._id}>{food.name}</Options>
+                  </>
                 ))}
             </Select>
             <DashedButton
@@ -387,7 +393,10 @@ export default function Appoiment() {
             >
               {foods &&
                 foods.map((food) => (
-                  <Options key={food._id}>{food.name}</Options>
+                  <>
+                    <Options>Selecione um alimento</Options>
+                    <Options key={food._id}>{food.name}</Options>
+                  </>
                 ))}
             </Select>
             <DashedButton
@@ -461,7 +470,10 @@ export default function Appoiment() {
             >
               {foods &&
                 foods.map((food) => (
-                  <Options key={food._id}>{food.name}</Options>
+                  <>
+                    <Options>Selecione um alimento</Options>
+                    <Options key={food._id}>{food.name}</Options>
+                  </>
                 ))}
             </Select>
             <DashedButton
@@ -532,7 +544,10 @@ export default function Appoiment() {
             >
               {foods &&
                 foods.map((food) => (
-                  <Options key={food._id}>{food.name}</Options>
+                  <>
+                    <Options>Selecione um alimento</Options>
+                    <Options key={food._id}>{food.name}</Options>
+                  </>
                 ))}
             </Select>
             <DashedButton
