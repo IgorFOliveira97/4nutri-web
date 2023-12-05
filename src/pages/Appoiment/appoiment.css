@@ -1,0 +1,36 @@
+.tabs-appoiment {
+    width: 90%;
+    height: 80vh;
+}
+
+.tab-panel-appoiment:not(label) {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 8px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.table-meal {
+    width: 80%;
+    margin-bottom: 20px;
+}
+
+.table-meal thead tr td {
+    border: 1px solid var(--color-primary--);
+}
+
+.table-meal tbody tr td {
+    width: fit-content;
+    border-left: 1px solid var(--color-primary--);
+    border-bottom: 1px solid var(--color-primary--);
+}
+
+.table-meal tbody tr td:last-of-type {
+    border-right: 1px solid var(--color-primary--);
+}

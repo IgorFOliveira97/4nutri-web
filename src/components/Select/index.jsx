@@ -1,4 +1,13 @@
 import './Select.css';
-export default function Select(props, name) {
-  return <select name={name}>{props.children}</select>;
+export default function Select({ children, name, value, onChange, width }) {
+  return (
+    <select
+      name={name}
+      value={value}
+      onChange={onChange}
+      style={{ width: width }}
+    >
+      {children}
+    </select>
+  );
 }

@@ -1,3 +1,3 @@
-export default function List(props) {
-  return <ul>{props.children}</ul>;
+export default function List({ children }) {
+  return <ul>{children}</ul>;
 }

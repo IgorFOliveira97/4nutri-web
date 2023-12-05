@@ -24,7 +24,7 @@ export default function Patients() {
     <PageBuilder pageName="Meus Pacientes">
       <SearchBar
         button="Novo paciente"
-        navigate="/patients/registration"
+        navigate="/patient/registration"
         color="#3CB371"
       >
         {' '}
@@ -47,7 +47,7 @@ export default function Patients() {
                   <div className="button-container">
                     <ButtonPacient
                       onClick={() =>
-                        navigate(`/patients/details/${patient._id}`)
+                        navigate(`/patient/details/${patient._id}`)
                       }
                     >
                       Ver Perfil

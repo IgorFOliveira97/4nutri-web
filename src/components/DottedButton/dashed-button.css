@@ -1,0 +1,13 @@
+.dashed-button {
+    background-color: transparent;
+    color: var(--color-primary--);
+    border: dashed var(--color-primary--);
+    cursor: pointer;
+    padding: 8px;
+}
+
+.dashed-button:hover {
+    border: dashed #fff;
+    background-color: var(--color-primary--);
+    color: #fff;
+}

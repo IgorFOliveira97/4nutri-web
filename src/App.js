@@ -21,6 +21,7 @@ import axios from 'axios';
 import { AuthProvider, Context } from './Context/AuthProvider';
 import { useContext } from 'react';
 import Loader from './components/Loader';
+import Appoiment from './pages/Appoiment';
 
 function PrivateRoute({ children }) {
   const { loading, authenticated, userData } = useContext(Context);
@@ -51,6 +52,7 @@ function App() {
             />
             <Route path="/login" element={<Login />} />
             <Route path="/user/registration" element={<UserRegistration />} />
+            <Route path="/PaymentPage" element={<PaymentPage />} />
             <Route
               path="/user/:id"
               element={
@@ -100,19 +102,26 @@ function App() {
               }
             />
             <Route
-              path="/patients/details/:id"
+              path="/patient/details/:id"
               element={
                 <PrivateRoute>
                   <PatientDetails />
                 </PrivateRoute>
               }
             />
-            <Route path="/PaymentPage" element={<PaymentPage />} />
             <Route
-              path="/patients/registration"
+              path="/patient/registration"
               element={
                 <PrivateRoute>
                   <PatientRegistration />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/patient/:patient_id/appoiment"
+              element={
+                <PrivateRoute>
+                  <Appoiment />
                 </PrivateRoute>
               }
             />

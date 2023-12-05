@@ -19,6 +19,7 @@ export default function useAuth() {
         setAuthenticated(true);
         setUserData(JSON.parse(user));
       } else {
+        console.log('Sessão expirada');
         toast.warning('Sua sessão expirou');
         navigate('/login');
       }

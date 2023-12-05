@@ -12,11 +12,11 @@ import { Context } from '../../Context/AuthProvider';
 import SimpleTitle from '../../components/SimpleTitle';
 
 function Home() {
-  const { authenticated, userData } = useContext(Context);
+  const { authenticated, userData, loading } = useContext(Context);
 
   return (
     <PageBuilder>
-      {!authenticated && !userData ? (
+      {!authenticated && !userData && !loading ? (
         <>
           <SideCard title="Ofereça o melhor atendimento nutricional para seus pacientes">
             <List>
