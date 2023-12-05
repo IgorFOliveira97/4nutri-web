@@ -6,10 +6,9 @@ export default function CardFood(props) {
   return (
     <div className="food">
       <div className="header">
-        <img src={props.img} alt=""></img>
+        <h4>{props.title}</h4>
       </div>
       <div className="footer">
-        <h4>{props.title}</h4>
         <h5>Proteína: {props.protein}</h5>
         <h5>Carboidratos: {props.carbs}</h5>
         <h5>Vitamina C: {props.vitaminC}</h5>

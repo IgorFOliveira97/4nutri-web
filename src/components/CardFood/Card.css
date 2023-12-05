@@ -7,13 +7,13 @@
   display: block;
 }
 
-.food .footer h4 {
+.food .header h4 {
   color: #000000;
   font-size: 27px;
-  line-height: 50px;
+  line-height: 60px;
   font-weight: bold;
-  margin-bottom: 8px;
-  margin-top: -20px;
+  margin-bottom: 0px;
+  margin-top: 0px;
   text-align: center;
 }
 
@@ -25,15 +25,6 @@
   padding: 0 16px;
 }
 
-.food img {
-  border-radius: 10px 10px 0px 0px;
-  height: 200px;
-  width: 280px;
-  position: relative;
-  bottom: 0px;
-  margin-left: 0px;
-}
-
 .food {
   justify-content: center;
   align-items: center;
@@ -41,11 +32,6 @@
 .food {
   width: 280px;
   margin: 0 10px;
-}
-
-.food .header {
-  background-color: #034d28;
-  border-radius: 10px 10px 0px 0px;
 }
 
 .button-container {

@@ -22,9 +22,10 @@ export default function FoodsEdit() {
   const params = useParams();
   const { userData } = useContext(Context);
 
+  const [isEditing, setIsEditing] = useState(false);
+
   const [food, setFood] = useState({
     nutritionist_id: userData._id,
-    photo: '',
     name: '',
     description: '',
     energy: '',
@@ -38,17 +39,16 @@ export default function FoodsEdit() {
     cholesterol: '',
   });
 
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
   const [status, setStatus] = useState({
     type: '',
     mensagem: '',
   });
 
   function validate() {
-    if (!food.photo)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Necessario adicionar uma foto!',
-      });
     if (!food.name)
       return setStatus({
         type: 'error',
@@ -114,7 +114,6 @@ export default function FoodsEdit() {
       .then((response) =>
         setFood({
           ...food,
-          photo: response.data.photo || banana,
           name: response.data.name,
           description: response.data.description,
           energy: response.data.energy,
@@ -172,13 +171,6 @@ export default function FoodsEdit() {
           ) : (
             ''
           )}
-          <Label>Foto</Label>
-          <Input
-            type="file"
-            name="photo"
-            accept="image/*"
-            onChange={(event) => handleInputChange(event, setFood)}
-          ></Input>
           <Label>Nome do alimento</Label>
           <Input
             type="text"
@@ -186,6 +178,7 @@ export default function FoodsEdit() {
             name="name"
             value={food.name}
             onChange={(event) => handleInputChange(event, setFood)}
+            disabled={!isEditing}
           />
           <Label>Descrição</Label>
           <Textarea
@@ -194,6 +187,7 @@ export default function FoodsEdit() {
             name="description"
             value={food.description}
             onChange={(event) => handleInputChange(event, setFood)}
+            disabled={!isEditing}
           ></Textarea>
           <Label>Calcio</Label>
           <Input
@@ -202,6 +196,7 @@ export default function FoodsEdit() {
             name="calcium"
             value={food.calcium}
             onChange={(event) => handleInputChange(event, setFood)}
+            disabled={!isEditing}
           />
           <Label>Magnesio</Label>
           <Input
@@ -210,6 +205,7 @@ export default function FoodsEdit() {
             name="magnesium"
             value={food.magnesium}
             onChange={(event) => handleInputChange(event, setFood)}
+            disabled={!isEditing}
           />
           <Label>Vitamina C</Label>
           <Input
@@ -218,6 +214,7 @@ export default function FoodsEdit() {
             name="vitaminC"
             value={food.vitaminC}
             onChange={(event) => handleInputChange(event, setFood)}
+            disabled={!isEditing}
           />
           <Label>Energia</Label>
           <Input
@@ -226,6 +223,7 @@ export default function FoodsEdit() {
             name="energy"
             value={food.energy}
             onChange={(event) => handleInputChange(event, setFood)}
+            disabled={!isEditing}
           />
           <Label>Proteina</Label>
           <Input
@@ -234,6 +232,7 @@ export default function FoodsEdit() {
             name="protein"
             value={food.protein}
             onChange={(event) => handleInputChange(event, setFood)}
+            disabled={!isEditing}
           />
           <Label>Lipideos</Label>
           <Input
@@ -242,6 +241,7 @@ export default function FoodsEdit() {
             name="lipids"
             value={food.lipids}
             onChange={(event) => handleInputChange(event, setFood)}
+            disabled={!isEditing}
           />
           <Label>Colesterol</Label>
           <Input
@@ -250,6 +250,7 @@ export default function FoodsEdit() {
             name="cholesterol"
             value={food.cholesterol}
             onChange={(event) => handleInputChange(event, setFood)}
+            disabled={!isEditing}
           />
           <Label>Carboidrato</Label>
           <Input
@@ -258,6 +259,7 @@ export default function FoodsEdit() {
             name="carbohydrate"
             value={food.carbohydrate}
             onChange={(event) => handleInputChange(event, setFood)}
+            disabled={!isEditing}
           />
           <Label>Fibra Alimentar</Label>
           <Input
@@ -266,14 +268,17 @@ export default function FoodsEdit() {
             name="dietary_fiber"
             value={food.dietary_fiber}
             onChange={(event) => handleInputChange(event, setFood)}
+            disabled={!isEditing}
           />
-          <Container>
-            <OutlineButton onClick={() => navigate('/foods')}>
-              Voltar
-            </OutlineButton>
-            <Button onClick={saveFood}>Salvar</Button>
-          </Container>
         </Form>
+      </Container>
+      <Container>
+        <OutlineButton onClick={() => navigate('/foods')}>Voltar</OutlineButton>
+        {isEditing ? (
+          <Button onClick={saveFood}>Salvar</Button>
+        ) : (
+          <Button onClick={handleEditClick}>Editar</Button>
+        )}
       </Container>
     </PageBuilder>
   );

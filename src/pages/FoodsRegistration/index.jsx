@@ -20,7 +20,6 @@ export default function FoodsRegistration() {
 
   const [food, setFood] = useState({
     nutritionist_id: userData._id,
-    photo: '',
     name: '',
     description: '',
     energy: '',
@@ -61,11 +60,6 @@ export default function FoodsRegistration() {
   };
 
   function validate() {
-    if (!food.photo)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Necessario adicionar uma foto!',
-      });
     if (!food.name)
       return setStatus({
         type: 'error',
@@ -144,14 +138,6 @@ export default function FoodsRegistration() {
           ) : (
             ''
           )}
-          <Label>Foto</Label>
-          <Input
-            type="file"
-            name="photo"
-            accept="image/*"
-            value={food.photo}
-            onChange={(event) => handleInputChange(event, setFood)}
-          ></Input>
           <Label>Nome do alimento</Label>
           <Input
             type="text"
