@@ -33,11 +33,6 @@ export default function FoodsRegistration() {
     cholesterol: '',
   });
 
-  const [status, setStatus] = useState({
-    type: '',
-    mensagem: '',
-  });
-
   const saveFood = async (event) => {
     event.preventDefault();
     if (!validate()) return;
@@ -60,61 +55,50 @@ export default function FoodsRegistration() {
   };
 
   function validate() {
-    if (!food.name)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Necessario preencher o campo nome!',
-      });
-    if (!food.description)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Necessario preencher o campo descrição!',
-      });
-    if (!food.calcium)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Necessario preencher o campo de calcio!',
-      });
-    if (!food.magnesium)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Necessario preencher o campo de magnesio!',
-      });
-    if (!food.vitaminC)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Necessario preencher o campo de vitamina C!',
-      });
-    if (!food.energy)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Necessario preencher o campo de energia!',
-      });
-    if (!food.protein)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Necessario preencher o campo de proteina!',
-      });
-    if (!food.lipids)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Necessario preencher o campo de lipideos!',
-      });
-    if (!food.cholesterol)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Necessario preencher o campo de colesterol!',
-      });
-    if (!food.carbohydrate)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Necessario preencher o campo de carboidrato!',
-      });
-    if (!food.dietary_fiber)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Necessario preencher o campo de Fibra Alimentar!',
-      });
+    if (!food.name) {
+      toast.error('Necessario preencher o campo nome!');
+      return false;
+    }
+    if (!food.description) {
+      toast.error('Necessario preencher o campo descrição!');
+      return false;
+    }
+    if (!food.calcium) {
+      toast.error('Necessario preencher o campo calcio!');
+      return false;
+    }
+    if (!food.magnesium) {
+      toast.error('Necessario preencher o campo Magnesio!');
+      return false;
+    }
+    if (!food.vitaminC) {
+      toast.error('Necessario preencher o campo Vitamina C!');
+      return false;
+    }
+    if (!food.energy) {
+      toast.error('Necessario preencher o campo Energia!');
+      return false;
+    }
+    if (!food.protein) {
+      toast.error('Necessario preencher o campo Proteina!');
+      return false;
+    }
+    if (!food.lipids) {
+      toast.error('Necessario preencher o campo Lipideos!');
+      return false;
+    }
+    if (!food.cholesterol) {
+      toast.error('Necessario preencher o campo Colesterol!');
+      return false;
+    }
+    if (!food.carbohydrate) {
+      toast.error('Necessario preencher o campo Carboidrato!');
+      return false;
+    }
+    if (!food.dietary_fiber) {
+      toast.error('Necessario preencher o campo Fibra Alimentar!');
+      return false;
+    }
 
     return true;
   }
@@ -124,20 +108,6 @@ export default function FoodsRegistration() {
       <Container>
         <Form>
           <SimpleTitle>Novo Alimento</SimpleTitle>
-          {status.type === 'success' ? (
-            <p style={{ color: 'green', fontSize: '20px', margin: '10px' }}>
-              {status.mensagem}
-            </p>
-          ) : (
-            ''
-          )}
-          {status.type === 'error' ? (
-            <p style={{ color: '#ff0000', fontSize: '20px', margin: '10px' }}>
-              {status.mensagem}
-            </p>
-          ) : (
-            ''
-          )}
           <Label>Nome do alimento</Label>
           <Input
             type="text"

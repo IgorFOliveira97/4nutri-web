@@ -28,11 +28,6 @@ export default function UserRegistration() {
     confirm_password: '',
   });
 
-  const [status, setStatus] = useState({
-    type: '',
-    mensagem: '',
-  });
-
   const validateBirthDate = (birthDate) => {
     const currentDate = new Date();
     const parsedBirthDate = parseISO(birthDate);
@@ -65,7 +60,9 @@ export default function UserRegistration() {
 
   const saveUser = (event) => {
     event.preventDefault();
-    if (!validate()) return;
+    if (!validate()) {
+      return;
+    }
     createNutritionist();
   };
 
@@ -75,95 +72,77 @@ export default function UserRegistration() {
   );
 
   function validate() {
-    if (!userData.name)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Necessario preencher o campo nome!',
-      });
-    if (!userData.email)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Necessario preencher o campo email!',
-      });
+    if (!userData.name) {
+      toast.error('Necessario preencher o campo nome!');
+      return false;
+    }
+    if (!userData.email) {
+      toast.error('Necessario preencher o campo email!');
+      return false;
+    }
     if (!validEmail.test(userData.email)) {
-      return setStatus({
-        type: 'error',
-        mensagem: 'Email invalido',
-      });
+      toast.error('Email invalido!');
+      return false;
     }
-    if (!userData.crn)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Necessario preencher o campo CRN!',
-      });
-    if (userData.crn.length != 7)
-      return setStatus({
-        type: 'error',
-        mensagem: 'CRN invalido!',
-      });
-    if (!userData.cpf)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Necessario preencher o campo CPF!',
-      });
-    if (userData.cpf.length < 11 || userData.cpf.length > 11)
-      return setStatus({
-        type: 'error',
-        mensagem: 'CPF invalido!',
-      });
-    if (!userData.phone)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Necessario preencher o campo telefone!',
-      });
-    if (!userData.mobile)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Necessario preencher o campo celular!',
-      });
-    if (userData.mobile.length < 11)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Número invalido!',
-      });
-    if (!userData.birth_date)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Necessario preencher o campo data de nascimento!',
-      });
+    if (!userData.crn) {
+      toast.error('Necessario preencher o campo CRN!!');
+      return false;
+    }
+    if (userData.crn.length != 7) {
+      toast.error('CRN invalido!');
+      return false;
+    }
+    if (!userData.cpf) {
+      toast.error('Necessario preencher o campo CPF!');
+      return false;
+    }
+
+    if (userData.cpf.length < 11 || userData.cpf.length > 11) {
+      toast.error('CPF invalido!');
+      return false;
+    }
+    if (!userData.phone) {
+      toast.error('Necessario preencher o campo telefone!');
+      return false;
+    }
+    if (!userData.mobile) {
+      toast.error('Necessario preencher o campo celular!');
+      return false;
+    }
+    if (userData.mobile.length < 11) {
+      toast.error('Número invalido!');
+      return false;
+    }
+    if (!userData.birth_date) {
+      toast.error('Necessario preencher o campo data de nascimento!');
+      return false;
+    }
     if (!validateBirthDate(userData.birth_date)) {
-      return setStatus({
-        type: 'error',
-        mensagem: 'Data invalida!',
-      });
+      toast.error('Data invalida!');
+      return false;
     }
-    if (!userData.gender)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Necessario selecionar o seu genero!',
-      });
-    if (!userData.password)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Necessario preencher o campo senha!',
-      });
+    if (!userData.gender) {
+      toast.error('Necessario selecionar o seu genero!');
+      return false;
+    }
+    if (!userData.password) {
+      toast.error('Necessario preencher o campo senha!');
+      return false;
+    }
     if (!validPassword.test(userData.password)) {
-      return setStatus({
-        type: 'error',
-        mensagem:
-          'A senha deve conter letras, número e ter no mínimo 6 caracteres!',
-      });
+      toast.error(
+        'A senha deve conter letras, número e ter no mínimo 6 caracteres!!'
+      );
+      return false;
     }
-    if (!userData.confirm_password)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Necessario preencher o campo confirmar senha!',
-      });
-    if (userData.confirm_password !== userData.password)
-      return setStatus({
-        type: 'error',
-        mensagem: 'Senhas diferentes!',
-      });
+    if (!userData.confirm_password) {
+      toast.error('Necessario preencher o campo confirmar senha!');
+      return false;
+    }
+    if (userData.confirm_password !== userData.password) {
+      toast.error('Senhas diferentes!');
+      return false;
+    }
 
     return true;
   }
@@ -172,21 +151,6 @@ export default function UserRegistration() {
     <PageBuilder pageName="Cadastro de Usuário">
       <Form>
         <SimpleTitle>Cadastre-se</SimpleTitle>
-        {status.type === 'success' ? (
-          <p style={{ color: 'green', fontSize: '20px', margin: '10px' }}>
-            {status.mensagem}
-          </p>
-        ) : (
-          ''
-        )}
-        {status.type === 'error' ? (
-          <p style={{ color: '#ff0000', fontSize: '20px', margin: '10px' }}>
-            {status.mensagem}
-          </p>
-        ) : (
-          ''
-        )}
-
         <Label>Nome</Label>
         <Input
           type="text"
