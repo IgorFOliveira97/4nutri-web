@@ -5,6 +5,7 @@ import InputRadio from '../../components/InputRadio';
 import Button from '../../components/Button';
 import Label from '../../components/Label';
 import SimpleTitle from '../../components/SimpleTitle';
+import { insertMaskInCpf } from '../../components/cpf';
 import './UserRegistration.css';
 import axios from 'axios';
 import { useState } from 'react';
@@ -106,11 +107,6 @@ export default function UserRegistration() {
         type: 'error',
         mensagem: 'Necessario preencher o campo CPF!',
       });
-    if (userData.cpf.length < 11 || userData.cpf.length > 11)
-      return setStatus({
-        type: 'error',
-        mensagem: 'CPF invalido!',
-      });
     if (!userData.phone)
       return setStatus({
         type: 'error',
@@ -179,13 +175,7 @@ export default function UserRegistration() {
         ) : (
           ''
         )}
-        {status.type === 'error' ? (
-          <p style={{ color: '#ff0000', fontSize: '20px', margin: '10px' }}>
-            {status.mensagem}
-          </p>
-        ) : (
-          ''
-        )}
+        {status.type === 'error' ? toast.warning(status.mensagem) : ''}
 
         <Label>Nome</Label>
         <Input
@@ -219,8 +209,10 @@ export default function UserRegistration() {
           type="text"
           name="cpf"
           id="cpf"
-          value={userData.cpf}
-          onChange={(event) => handleInputChange(event, setUserData)}
+          value={insertMaskInCpf(userData.cpf)}
+          onChange={(event) => {
+            handleInputChange(event, setUserData);
+          }}
         ></Input>
 
         <Label>Telefone</Label>

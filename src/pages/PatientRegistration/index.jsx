@@ -8,7 +8,8 @@ import Input from '../../components/Input';
 import InputRadio from '../../components/InputRadio';
 import TextArea from '../../components/TextArea';
 import Button from '../../components/Button';
-
+import { insertMaskInCpf } from '../../components/cpf';
+import { differenceInYears, parseISO } from 'date-fns';
 import './PatientRegistration.css';
 import { useContext, useState } from 'react';
 import axios from 'axios';
@@ -18,9 +19,14 @@ import { Context } from '../../Context/AuthProvider';
 
 export default function PatientRegistration() {
   const { userData } = useContext(Context);
+  const [status, setStatus] = useState({
+    type: '',
+    mensagem: '',
+  });
   const [patientData, setPatientData] = useState({
     nutritionist_id: userData._id,
     name: '',
+    cpf: '',
     phone: '',
     mobile: '',
     birth_date: '',
@@ -52,7 +58,100 @@ export default function PatientRegistration() {
         console.error(error);
       });
   };
+  const validEmail = new RegExp(
+    '^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$'
+  );
+  const validateBirthDate = (birthDate) => {
+    const currentDate = new Date();
+    const parsedBirthDate = parseISO(birthDate);
+    const age = differenceInYears(currentDate, parsedBirthDate);
+    if (age < 18) {
+      return false;
+    }
+    return true;
+  };
+  function validate() {
+    if (!userData.name)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Necessario preencher o campo nome!',
+      });
+    if (!userData.email)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Necessario preencher o campo email!',
+      });
+    if (!validEmail.test(userData.email)) {
+      return setStatus({
+        type: 'error',
+        mensagem: 'Email invalido',
+      });
+    }
 
+    if (!userData.phone)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Necessario preencher o campo telefone!',
+      });
+    if (!userData.mobile)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Necessario preencher o campo celular!',
+      });
+    if (userData.mobile.length < 11)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Número invalido!',
+      });
+    if (!userData.birth_date)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Necessario preencher o campo data de nascimento!',
+      });
+    if (!validateBirthDate(userData.birth_date)) {
+      return setStatus({
+        type: 'error',
+        mensagem: 'Data invalida!',
+      });
+    }
+    if (!userData.gender)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Necessario selecionar o seu genero!',
+      });
+    if (!userData.weight)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Necessario inserir seu peso',
+      });
+    if (!userData.height)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Necessario inserir sua altura',
+      });
+    if (!userData.bmi)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Necessario inserir seu IMC',
+      });
+    if (!userData.skinfold_thickness)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Necessario inserir sua Espessura da dobra cutânea!',
+      });
+    if (!userData.growth_curve)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Necessario inserir sua curva crescimento!',
+      });
+    if (!userData.gestational_curve)
+      return setStatus({
+        type: 'error',
+        mensagem: 'Necessario inserir sua curva gestacional!',
+      });
+
+    return true;
+  }
   return (
     <PageBuilder pageName="Cadastre seu paciente">
       <Tabs>
@@ -75,7 +174,16 @@ export default function PatientRegistration() {
               value={patientData.name}
               onChange={(event) => handleInputChange(event, setPatientData)}
             ></Input>
-
+            <Label>CPF</Label>
+            <Input
+              type="text"
+              name="cpf"
+              id="cpf"
+              value={insertMaskInCpf(patientData.cpf)}
+              onChange={(event) => {
+                handleInputChange(event, setPatientData);
+              }}
+            ></Input>
             <Label>Telefone</Label>
             <Input
               type="tel"
