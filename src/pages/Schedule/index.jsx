@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Paper from '@mui/material/Paper';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
@@ -10,10 +10,15 @@ import {
   TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import PageBuilder from '../../components/PageBuilder';
+import axios from 'axios';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '../../components/Button';
+import { toast } from 'react-toastify';
+import { Context } from '../../Context/AuthProvider';
+import Options from '../../components/Options';
+import Select from '../../components/Select';
 
 const Appointment = ({ style, ...restProps }) => (
   <Appointments.Appointment
@@ -28,228 +33,181 @@ const Appointment = ({ style, ...restProps }) => (
   />
 );
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const Demo = () => {
+  const [data, setData] = useState([]);
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isNewAppointmentModalOpen, setIsNewAppointmentModalOpen] =
+    useState(false);
+  const [selectedAppointment, setSelectedAppointment] = useState(null);
 
-    this.state = {
-      data: [],
-      currentDate: new Date(),
-      isModalOpen: false,
-      isNewAppointmentModalOpen: false,
-      selectedAppointment: null,
-      newAppointment: {
-        startDate: '',
-        endDate: '',
-        title: '',
-        description: '',
-      },
-    };
-  }
+  const { userData } = useContext(Context);
+  const [newAppointment, setNewAppointment] = useState({
+    nutritionist_id: userData._id,
+    patient_id: '',
+    start: '',
+    end: '',
+  });
+  const [patients, setPatients] = useState([]);
 
-  componentDidMount() {
-    // Simular carregamento de dados iniciais
-    const initialAppointments = [
-      {
-        startDate: '2023-10-31T10:00',
-        endDate: '2023-10-31T11:00',
-        title: 'Compromisso Inicial',
-        description: 'Detalhes do compromisso inicial.',
-      },
-      {},
-    ];
+  useEffect(() => {
+    axios.get(`patients/${userData._id}`).then((response) => {
+      setPatients(response.data);
+    });
+  }, [userData._id]);
 
-    this.setState({ data: initialAppointments });
-  }
+  const handleAppointmentClick = (appointment) => {
+    setIsModalOpen(true);
+    setSelectedAppointment(appointment);
+  };
 
-  handleAppointmentClick = (appointment) => {
-    this.setState({
-      isModalOpen: true,
-      selectedAppointment: appointment,
+  const openNewAppointmentModal = () => {
+    setIsNewAppointmentModalOpen(true);
+  };
+
+  const closeNewAppointmentModal = () => {
+    setIsNewAppointmentModalOpen(false);
+    setNewAppointment({
+      nutritionist_id: userData._id,
+      patient_id: '',
+      start: '',
+      end: '',
     });
   };
 
-  openNewAppointmentModal = () => {
-    this.setState({ isNewAppointmentModalOpen: true });
-  };
-
-  closeNewAppointmentModal = () => {
-    this.setState({
-      isNewAppointmentModalOpen: false,
-      newAppointment: {
-        startDate: '',
-        endDate: '',
-        title: '',
-        description: '',
-      },
-    });
-  };
-
-  handleInputChange = (e) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    this.setState((prevState) => ({
-      newAppointment: {
-        ...prevState.newAppointment,
-        [name]: value,
-      },
+    setNewAppointment((prevAppointment) => ({
+      ...prevAppointment,
+      [name]: value,
     }));
   };
 
-  addNewAppointment = () => {
-    const { newAppointment, data } = this.state;
+  const addNewAppointment = () => {
     const updatedData = [
       ...data,
       {
-        startDate: newAppointment.startDate,
-        endDate: newAppointment.endDate,
-        title: newAppointment.title,
-        description: newAppointment.description,
+        startDate: newAppointment.start,
+        endDate: newAppointment.end,
+        title: 'Paciente: Cesar',
+        // Outros campos do compromisso podem ser preenchidos conforme necessário
       },
     ];
-
-    this.setState({
-      data: updatedData,
-      isNewAppointmentModalOpen: false,
-      newAppointment: {
-        startDate: '',
-        endDate: '',
-        title: '',
-        description: '',
-      },
+    setData(updatedData);
+    setIsNewAppointmentModalOpen(false);
+    setNewAppointment({
+      nutritionist_id: userData._id,
+      patient_id: '',
+      start: '',
+      end: '',
     });
   };
 
-  render() {
-    const {
-      data,
-      currentDate,
-      isModalOpen,
-      isNewAppointmentModalOpen,
-      selectedAppointment,
-      newAppointment,
-    } = this.state;
+  const saveSchedule = async (event) => {
+    event.preventDefault();
+    console.log(newAppointment);
+    await axios
+      .post('schedule', newAppointment)
+      .then((response) => {
+        if (response.status === 201) {
+          toast.success('Compromisso agendado com sucesso!');
+          addNewAppointment(); // Adiciona o novo compromisso ao calendário
+        } else {
+          toast.error('Houve um erro no agendamento do compromisso!');
+          console.error(response);
+        }
+      })
+      .catch((error) => {
+        toast.error('Houve um erro no agendamento do compromisso!');
+        console.error(error);
+      });
+  };
 
-    return (
-      <PageBuilder>
-        <Paper>
-          <Scheduler data={data} height={660}>
-            <ViewState
-              currentDate={currentDate}
-              onCurrentDateChange={(currentDate) => {
-                this.setState({ currentDate });
-              }}
-            />
-            <WeekView startDayHour={9} endDayHour={19} />
-            <Toolbar />
-            <DateNavigator />
-            <TodayButton />
-            <Appointments
-              appointmentComponent={(props) => (
-                <Appointment
-                  {...props}
-                  onClick={() => this.handleAppointmentClick(props.data)}
-                />
-              )}
-            />
-          </Scheduler>
-        </Paper>
-        {/* Modal para exibir detalhes do compromisso */}
-        <Modal
-          open={isModalOpen}
-          onClose={() => this.setState({ isModalOpen: false })}
-        >
-          <Box
-            sx={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: 400,
-              bgcolor: 'background.paper',
-              boxShadow: 24,
-              p: 4,
+  return (
+    <PageBuilder>
+      <Paper>
+        <Scheduler data={data} height={660}>
+          <ViewState
+            currentDate={currentDate}
+            onCurrentDateChange={(currentDate) => {
+              setCurrentDate(currentDate);
             }}
-          >
-            <h3>Detalhes do Compromisso</h3>
-            <p>
-              <strong>Título:</strong> {selectedAppointment?.title}
-            </p>
-            <p>
-              <strong>Data de Início:</strong> {selectedAppointment?.startDate}
-            </p>
-            <p>
-              <strong>Data de Término:</strong> {selectedAppointment?.endDate}
-            </p>
-            <p>
-              <strong>Descrição:</strong> {selectedAppointment?.description}
-            </p>
-          </Box>
-        </Modal>
-        {/* Modal para adicionar um novo compromisso */}
-        <Modal
-          open={isNewAppointmentModalOpen}
-          onClose={this.closeNewAppointmentModal}
+          />
+          <WeekView startDayHour={9} endDayHour={19} />
+          <Toolbar />
+          <DateNavigator />
+          <TodayButton />
+          <Appointments
+            appointmentComponent={(props) => (
+              <Appointment
+                {...props}
+                onClick={() => handleAppointmentClick(props.data)}
+              />
+            )}
+          />
+        </Scheduler>
+      </Paper>
+      {/* Modal para exibir detalhes do compromisso */}
+
+      {/* Modal para adicionar um novo compromisso */}
+      <Modal
+        open={isNewAppointmentModalOpen}
+        onClose={closeNewAppointmentModal}
+      >
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 400,
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+            p: 4,
+          }}
         >
-          <Box
-            sx={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: 400,
-              bgcolor: 'background.paper',
-              boxShadow: 24,
-              p: 4,
-            }}
+          <TextField
+            label="Data de Início"
+            type="datetime-local"
+            name="start"
+            value={newAppointment.start}
+            onChange={handleInputChange}
+            sx={{ marginBottom: 2 }}
+            fullWidth
+          />
+          <TextField
+            label="Data de Término"
+            type="datetime-local"
+            name="end"
+            value={newAppointment.end}
+            onChange={handleInputChange}
+            sx={{ marginBottom: 2 }}
+            fullWidth
+          />
+
+          <Select
+            label="Paciente"
+            name="patient_id"
+            value={newAppointment.patient_id}
+            onChange={handleInputChange}
           >
-            <TextField
-              label="Data de Início"
-              type="datetime-local"
-              name="startDate"
-              value={newAppointment.startDate}
-              onChange={this.handleInputChange}
-              sx={{ marginBottom: 2 }}
-              fullWidth
-            />
-            <TextField
-              label="Data de Término"
-              type="datetime-local"
-              name="endDate"
-              value={newAppointment.endDate}
-              onChange={this.handleInputChange}
-              sx={{ marginBottom: 2 }}
-              fullWidth
-            />
-            <TextField
-              label="Título"
-              name="title"
-              value={newAppointment.title}
-              onChange={this.handleInputChange}
-              sx={{ marginBottom: 2 }}
-              fullWidth
-            />
-            <TextField
-              label="Descrição"
-              name="description"
-              value={newAppointment.description}
-              onChange={this.handleInputChange}
-              sx={{ marginBottom: 2 }}
-              fullWidth
-            />
-            <Button
-              onClick={this.addNewAppointment}
-              variant="contained"
-              color="primary"
-            >
-              Salvar
-            </Button>
-          </Box>
-        </Modal>
-        {/* Botão para abrir o modal de novo compromisso */}
-        <Button onClick={this.openNewAppointmentModal}>
-          Adicionar Compromisso
-        </Button>
-      </PageBuilder>
-    );
-  }
-}
+            {patients &&
+              patients.map((patient) => (
+                <Options key={patient._id} value={patient._id}>
+                  {patient.name}
+                </Options>
+              ))}
+          </Select>
+
+          <Button onClick={saveSchedule} variant="contained" color="primary">
+            Salvar
+          </Button>
+        </Box>
+      </Modal>
+      {/* Botão para abrir o modal de novo compromisso */}
+      <Button onClick={openNewAppointmentModal}>Adicionar Compromisso</Button>
+    </PageBuilder>
+  );
+};
+
+export default Demo;

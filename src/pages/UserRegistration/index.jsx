@@ -5,6 +5,7 @@ import InputRadio from '../../components/InputRadio';
 import Button from '../../components/Button';
 import Label from '../../components/Label';
 import SimpleTitle from '../../components/SimpleTitle';
+import { insertMaskInCpf } from '../../components/cpf';
 import './UserRegistration.css';
 import axios from 'axios';
 import { useState } from 'react';
@@ -183,8 +184,10 @@ export default function UserRegistration() {
           type="text"
           name="cpf"
           id="cpf"
-          value={userData.cpf}
-          onChange={(event) => handleInputChange(event, setUserData)}
+          value={insertMaskInCpf(userData.cpf)}
+          onChange={(event) => {
+            handleInputChange(event, setUserData);
+          }}
         ></Input>
 
         <Label>Telefone</Label>
