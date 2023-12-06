@@ -151,7 +151,7 @@ export default function UserRegistration() {
   return (
     <PageBuilder pageName="Cadastro de Usuário">
       <Form>
-        <SimpleTitle>Cadastre-se</SimpleTitle>
+        <SimpleTitle>Informe os seus dados</SimpleTitle>
         <Label>Nome</Label>
         <Input
           type="text"
@@ -265,6 +265,11 @@ export default function UserRegistration() {
           value={userData.confirm_password}
           onChange={(event) => handleInputChange(event, setUserData)}
         ></Input>
+
+        <Label htmlFor="policy">
+          Aceito os termos e políticas de privacidade
+        </Label>
+        <Input type="checkbox" name="policy" id="policy" width="20px" />
 
         <Button width="300px" onClick={saveUser}>
           Cadastrar

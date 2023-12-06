@@ -23,3 +23,24 @@
     margin-left: 250px;
 
 }
+
+.table-appoiments {
+    padding: 10px;
+    background-color: #fff;
+    width: 80%;
+    margin-bottom: 20px;
+}
+
+.table-appoiments thead tr td {
+    border: 1px solid var(--color-primary--);
+}
+
+.table-appoiments tbody tr td {
+    width: fit-content;
+    border-left: 1px solid var(--color-primary--);
+    border-bottom: 1px solid var(--color-primary--);
+}
+
+.table-appoiments tbody tr td:last-of-type {
+    border-right: 1px solid var(--color-primary--);
+}

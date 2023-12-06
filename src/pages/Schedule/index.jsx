@@ -9,6 +9,7 @@ import {
   Appointments,
   TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
+
 import PageBuilder from '../../components/PageBuilder';
 import axios from 'axios';
 import Modal from '@mui/material/Modal';
@@ -19,6 +20,8 @@ import { toast } from 'react-toastify';
 import { Context } from '../../Context/AuthProvider';
 import Options from '../../components/Options';
 import Select from '../../components/Select';
+import handleInputChange from '../../handlers/input.handler';
+import Container from '../../components/Container';
 
 const Appointment = ({ style, ...restProps }) => (
   <Appointments.Appointment
@@ -32,7 +35,6 @@ const Appointment = ({ style, ...restProps }) => (
     }}
   />
 );
-
 const Demo = () => {
   const [data, setData] = useState([]);
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -42,19 +44,39 @@ const Demo = () => {
   const [selectedAppointment, setSelectedAppointment] = useState(null);
 
   const { userData } = useContext(Context);
-  const [newAppointment, setNewAppointment] = useState({
+  const [schedule, setSchedule] = useState({
     nutritionist_id: userData._id,
     patient_id: '',
     start: '',
     end: '',
   });
-  const [patients, setPatients] = useState([]);
+  const [patients, setSchedules] = useState([]);
+
+  const fetchAppointments = async () => {
+    try {
+      const response = await axios.get(`/schedules/${userData._id}`);
+      setData(
+        response.data.map((appointment) => ({
+          startDate: new Date(appointment.start),
+          endDate: new Date(appointment.end),
+          title: appointment.patient_id.name, // Ajuste conforme necessário
+          ...appointment,
+        }))
+      );
+    } catch (error) {
+      console.error('Erro ao buscar compromissos:', error);
+    }
+  };
 
   useEffect(() => {
     axios.get(`patients/${userData._id}`).then((response) => {
-      setPatients(response.data);
+      setSchedules(response.data);
     });
   }, [userData._id]);
+
+  useEffect(() => {
+    fetchAppointments();
+  }, [userData._id, currentDate]);
 
   const handleAppointmentClick = (appointment) => {
     setIsModalOpen(true);
@@ -67,7 +89,7 @@ const Demo = () => {
 
   const closeNewAppointmentModal = () => {
     setIsNewAppointmentModalOpen(false);
-    setNewAppointment({
+    setSchedule({
       nutritionist_id: userData._id,
       patient_id: '',
       start: '',
@@ -75,27 +97,24 @@ const Demo = () => {
     });
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewAppointment((prevAppointment) => ({
-      ...prevAppointment,
-      [name]: value,
-    }));
-  };
+  const addNewAppointment = async () => {
+    console.log(schedule);
+    try {
+      const response = await axios.post('schedule', schedule);
+      if (response.status === 201) {
+        toast.success('Compromisso agendado com sucesso!');
+        await fetchAppointments();
+      } else {
+        toast.error('Houve um erro no agendamento do compromisso!');
+        console.error(response);
+      }
+    } catch (error) {
+      toast.error('Houve um erro no agendamento do compromisso!');
+      console.error(error);
+    }
 
-  const addNewAppointment = () => {
-    const updatedData = [
-      ...data,
-      {
-        startDate: newAppointment.start,
-        endDate: newAppointment.end,
-        title: 'Paciente: Cesar',
-        // Outros campos do compromisso podem ser preenchidos conforme necessário
-      },
-    ];
-    setData(updatedData);
     setIsNewAppointmentModalOpen(false);
-    setNewAppointment({
+    setSchedule({
       nutritionist_id: userData._id,
       patient_id: '',
       start: '',
@@ -105,28 +124,14 @@ const Demo = () => {
 
   const saveSchedule = async (event) => {
     event.preventDefault();
-    console.log(newAppointment);
-    await axios
-      .post('schedule', newAppointment)
-      .then((response) => {
-        if (response.status === 201) {
-          toast.success('Compromisso agendado com sucesso!');
-          addNewAppointment(); // Adiciona o novo compromisso ao calendário
-        } else {
-          toast.error('Houve um erro no agendamento do compromisso!');
-          console.error(response);
-        }
-      })
-      .catch((error) => {
-        toast.error('Houve um erro no agendamento do compromisso!');
-        console.error(error);
-      });
+    console.log(setSchedule);
+    await addNewAppointment();
   };
 
   return (
     <PageBuilder>
       <Paper>
-        <Scheduler data={data} height={660}>
+        <Scheduler data={data} height={660} locale={'pt-BR'}>
           <ViewState
             currentDate={currentDate}
             onCurrentDateChange={(currentDate) => {
@@ -147,9 +152,6 @@ const Demo = () => {
           />
         </Scheduler>
       </Paper>
-      {/* Modal para exibir detalhes do compromisso */}
-
-      {/* Modal para adicionar um novo compromisso */}
       <Modal
         open={isNewAppointmentModalOpen}
         onClose={closeNewAppointmentModal}
@@ -170,8 +172,8 @@ const Demo = () => {
             label="Data de Início"
             type="datetime-local"
             name="start"
-            value={newAppointment.start}
-            onChange={handleInputChange}
+            value={schedule.start}
+            onChange={(event) => handleInputChange(event, setSchedule)}
             sx={{ marginBottom: 2 }}
             fullWidth
           />
@@ -179,32 +181,36 @@ const Demo = () => {
             label="Data de Término"
             type="datetime-local"
             name="end"
-            value={newAppointment.end}
-            onChange={handleInputChange}
+            value={schedule.end}
+            onChange={(event) => handleInputChange(event, setSchedule)}
             sx={{ marginBottom: 2 }}
             fullWidth
           />
-
           <Select
-            label="Paciente"
+            label="Selecione o paciente"
             name="patient_id"
-            value={newAppointment.patient_id}
-            onChange={handleInputChange}
+            value={schedule.patient_id}
+            width="100%"
+            onChange={(event) => handleInputChange(event, setSchedule)}
           >
+            <Options>Selecione o paciente</Options>
             {patients &&
-              patients.map((patient) => (
-                <Options key={patient._id} value={patient._id}>
-                  {patient.name}
-                </Options>
-              ))}
+              patients.map((patient) => {
+                return (
+                  <Options key={patient._id} value={patient._id}>
+                    {patient.name}
+                  </Options>
+                );
+              })}
           </Select>
 
-          <Button onClick={saveSchedule} variant="contained" color="primary">
-            Salvar
-          </Button>
+          <Container>
+            <Button onClick={saveSchedule} variant="contained" color="primary">
+              Salvar
+            </Button>
+          </Container>
         </Box>
       </Modal>
-      {/* Botão para abrir o modal de novo compromisso */}
       <Button onClick={openNewAppointmentModal}>Adicionar Compromisso</Button>
     </PageBuilder>
   );

@@ -242,12 +242,12 @@ export default function PatientDetails() {
             </TabPanel>
             <TabPanel>
               <Container>
-                <table>
+                <table className="table-appoiments">
                   <thead>
                     <tr>
                       <th>Data</th>
-                      <th>Altura</th>
-                      <th>Peso</th>
+                      <th>Altura (cm)</th>
+                      <th>Peso (kg)</th>
                       <th>IMC</th>
                     </tr>
                   </thead>
@@ -257,8 +257,8 @@ export default function PatientDetails() {
                         return (
                           <tr key={appoiment._id}>
                             <td>{appoiment.appoiment_date}</td>
-                            <td>{appoiment.weight}</td>
                             <td>{appoiment.height}</td>
+                            <td>{appoiment.weight}</td>
                             <td>{appoiment.bmi}</td>
                           </tr>
                         );

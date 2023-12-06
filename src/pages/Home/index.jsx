@@ -21,15 +21,12 @@ function Home() {
           <SideCard title="Ofereça o melhor atendimento nutricional para seus pacientes">
             <List>
               <Item>Planos alimentares calculados ou livres</Item>
-              <Item>Protocolos de Antropometria e Gastos Energéticos</Item>
-              <Item>Gráficos de evolução</Item>
-              <Item>
-                Solicitação de exames laboratoriais e análise dos resultados
-              </Item>
               <Item>
                 Questionários pré consulta, recordatório 24h e anamnese
                 interativa
               </Item>
+              <Item>Protocolos de Antropometria e Gastos Energéticos</Item>
+              <Item>Gráficos de evolução</Item>
               <Item>Prescrições de Suplementos e fitoterápicos</Item>
             </List>
           </SideCard>
@@ -43,41 +40,39 @@ function Home() {
           <Container>
             <Card title="Plano Anual Standard" button="Assinar" color="#8FBC8F">
               <SimpleText>
-                Proporcionando uma análise nutricional abrangente, o software
-                Standard oferece recursos essenciais para o acompanhamento
-                preciso da dieta, garantindo um suporte eficaz às metas
-                nutricionais dos clientes.promovendo resultados excepcionais
-                para os pacientes.
-                <span className="text">equivalente a</span>
+                Oferece análise nutricional abrangente e recursos essenciais
+                para o acompanhamento preciso da dieta. Suporte eficaz às metas
+                nutricionais dos clientes, promovendo resultados excepcionais
+                para até 15 pacientes.
               </SimpleText>
-              <DecorativeText>R$ 19,90 /mês</DecorativeText>
+              <DecorativeText>R$ 19,90/mês</DecorativeText>
+              <span className="text">ou</span>
               <SimpleText className="discount-paragraph">
                 R$ 238,90 à vista
               </SimpleText>
             </Card>
             <Card title="Plano Anual Premium" button="Assinar" color="#3CB371">
               <SimpleText>
-                Com funcionalidades avançadas de personalização e relatórios
-                detalhados, o software Premium eleva a prática nutricional a um
-                novo patamar, proporcionando insights aprofundados e promovendo
-                resultados excepcionais para os pacientes.
+                Funcionalidades avançadas de personalização e relatórios
+                detalhados elevam a prática nutricional. Proporciona insights
+                aprofundados e promove resultados excepcionais para até 30
+                pacientes.
               </SimpleText>
-              <span className="text">equivalente a</span>
-              <DecorativeText>R$ 19,90 /mês</DecorativeText>
+              <DecorativeText>R$ 19,90/mês</DecorativeText>
+              <span className="text">ou</span>
               <SimpleText className="discount-paragraph">
                 R$ 238,90 à vista
               </SimpleText>
             </Card>
             <Card title="Plano Anual Combo" button="Assinar" color="#006400">
               <SimpleText>
-                O plano Combo oferece a combinação ideal de recursos do Standard
-                e do Premium, proporcionando ao nutricionista uma ferramenta
-                completa e integrada para otimizar a gestão de pacientes,
-                personalização de dietas e análise avançada de dados
-                nutricionais.
+                Oferece a combinação ideal de recursos do Standard e do Premium.
+                Ferramenta completa e integrada para otimizar a gestão de
+                pacientes, personalização de dietas e análise avançada de dados
+                nutricionais, sem limite de pacientes.
               </SimpleText>
-              <span className="text">equivalente a</span>
-              <DecorativeText>R$ 56,24 /mês</DecorativeText>
+              <DecorativeText>R$ 56,24/mês</DecorativeText>
+              <span className="text">ou</span>
               <SimpleText className="discount-paragraph">
                 R$ 674,90 à vista
               </SimpleText>
@@ -86,7 +81,9 @@ function Home() {
         </>
       ) : (
         <Container>
-          <SimpleTitle>Seja bem-vindo(a) {userData?.name}</SimpleTitle>
+          {userData && (
+            <SimpleTitle>Seja bem-vindo(a) {userData?.name}</SimpleTitle>
+          )}
         </Container>
       )}
     </PageBuilder>

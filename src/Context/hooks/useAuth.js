@@ -19,7 +19,6 @@ export default function useAuth() {
         setAuthenticated(true);
         setUserData(JSON.parse(user));
       } else {
-        console.log('Sessão expirada');
         toast.warning('Sua sessão expirou');
         navigate('/login');
       }
@@ -57,7 +56,8 @@ export default function useAuth() {
       });
   }
   function handleLogout() {
-    localStorage.removeItem('token', 'user');
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     axios.defaults.headers.Authorization = undefined;
     navigate('/login');
     setAuthenticated(false);

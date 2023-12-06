@@ -10,6 +10,7 @@ export default function Input({
   onChange,
   onBlur,
   disabled,
+  width,
 }) {
   return (
     <input
@@ -23,6 +24,7 @@ export default function Input({
       required={required}
       disabled={disabled}
       onBlur={onBlur}
+      style={{ width: width }}
     ></input>
   );
 }
